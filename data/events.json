@@ -1,0 +1,15 @@
+[
+  {
+    "id": "fall-kickoff-2026",
+    "name": "Fall Kickoff",
+    "kind": "Department dinner",
+    "start": "2026-09-17T17:30:00-07:00",
+    "hideAfter": "2026-09-18T00:00:00-07:00",
+    "location": "Winter Lawn",
+    "rsvpEmail": "sleyva@westmont.edu",
+    "rsvpContact": "Ms. Susan Leyva",
+    "source": "Department announcement provided by Mike Ryu",
+    "sourceType": "user",
+    "verifiedAt": "2026-09-13"
+  }
+]

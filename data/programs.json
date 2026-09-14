@@ -1,0 +1,44 @@
+[
+  {
+    "id": "mathematics",
+    "name": "Mathematics",
+    "headline": "Discover the patterns.",
+    "summary": "Explore abstract ideas, reason carefully, and investigate new questions alongside faculty and fellow students.",
+    "topics": [
+      "Proof & discovery",
+      "Undergraduate research",
+      "Mathematics education"
+    ],
+    "source": "https://www.westmont.edu/mathematics",
+    "verifiedAt": "2026-09-13",
+    "shortName": "MATH"
+  },
+  {
+    "id": "computer-science",
+    "name": "Computer Science",
+    "headline": "Build what comes next.",
+    "summary": "Turn abstract problem solving into useful software. Study algorithms, collaborate on systems, and connect ideas with practice.",
+    "topics": [
+      "Algorithms & systems",
+      "Software development",
+      "CATLab"
+    ],
+    "source": "https://www.westmont.edu/computer-science",
+    "verifiedAt": "2026-09-13",
+    "shortName": "CS"
+  },
+  {
+    "id": "data-analytics",
+    "name": "Data Analytics",
+    "headline": "Make meaning from data.",
+    "summary": "Bring mathematics, computing, and business together to interpret evidence and inform thoughtful decisions.",
+    "topics": [
+      "Statistics & probability",
+      "Machine learning",
+      "Interdisciplinary study"
+    ],
+    "source": "https://www.westmont.edu/data-analytics",
+    "verifiedAt": "2026-09-13",
+    "shortName": "DA"
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "bailey-hall",
+    "name": "Bailey Hall",
+    "classYear": 2024,
+    "headline": "From mathematics to neural networks.",
+    "summary": "After Westmont, Bailey pursued an A3D3 research fellowship at the University of Washington, working on AI methods for brain–computer interfaces.",
+    "source": "https://www.westmont.edu/mathematics",
+    "verifiedAt": "2026-09-13",
+    "photo": "assets/bailey-hall.jpg",
+    "displayStory": "Exploring AI for brain–computer interfaces at the University of Washington."
+  },
+  {
+    "id": "talia-bjelland",
+    "name": "Talia Bjelland",
+    "classYear": 2022,
+    "headline": "Learning by building. Leading by helping.",
+    "summary": "At Westmont, Talia tutored fellow programmers and developed software through CATLab. Her experience also included an internship at Best Buy.",
+    "source": "https://www.westmont.edu/computer-science",
+    "verifiedAt": "2026-09-13",
+    "displayStory": "From building software in CATLab to an internship at Best Buy."
+  }
+]

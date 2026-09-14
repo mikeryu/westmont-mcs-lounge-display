@@ -1,0 +1,15 @@
+{
+  "school": "Westmont College",
+  "department": "Department of Mathematics and Computer Science",
+  "timezone": "America/Los_Angeles",
+  "slideSeconds": 18,
+  "weatherRefreshMinutes": 15,
+  "campus": {
+    "latitude": 34.449789,
+    "longitude": -119.659331,
+    "source": "https://www.wikidata.org/wiki/Q3444458",
+    "verifiedAt": "2026-09-13",
+    "note": "Campus reference point, converted from 34°26′59.240″N, 119°39′33.592″W. Weather represents a model grid, not a campus sensor."
+  },
+  "welcomePhoto": "assets/community.jpg"
+}

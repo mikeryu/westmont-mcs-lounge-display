@@ -1,0 +1,19 @@
+{
+  "name": "westmont-mcs-lounge-display",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.js",
+    "start": "python3 -m http.server 8080 --bind 127.0.0.1 --directory dist",
+    "test:browser": "node scripts/browser-check.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@fortawesome/free-solid-svg-icons": "7.3.1",
+    "@playwright/test": "^1.63.0"
+  }
+}

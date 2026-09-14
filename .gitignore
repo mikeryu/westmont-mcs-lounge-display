@@ -1,0 +1,10 @@
+dist/
+node_modules/
+.DS_Store
+
+SSHPW.key
+*.key
+
+# Private College imagery, font archives, and screenshots stay off GitHub.
+public/assets/
+docs/screenshots/

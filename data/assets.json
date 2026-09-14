@@ -1,0 +1,70 @@
+[
+  {
+    "path": "assets/anna-aboud.jpg",
+    "source": "https://www.westmont.edu/sites/default/files/28cebFFA%20%281%29.jpeg",
+    "verifiedAt": "2026-09-13",
+    "credit": "Westmont College"
+  },
+  {
+    "path": "assets/maryke-van-der-walt.jpg",
+    "source": "https://www.westmont.edu/sites/default/files/Screenshot%202025-06-13%20at%209.45.52%E2%80%AFAM.png",
+    "verifiedAt": "2026-09-13",
+    "credit": "Westmont College"
+  },
+  {
+    "path": "assets/russell-howell.jpg",
+    "source": "https://www.westmont.edu/sites/default/files/Screenshot%202025-06-13%20at%209.31.56%E2%80%AFAM.png",
+    "verifiedAt": "2026-09-13",
+    "credit": "Westmont College"
+  },
+  {
+    "path": "assets/mike-ryu.jpg",
+    "source": "https://www.westmont.edu/sites/default/files/MikeRyu_0.jpg",
+    "verifiedAt": "2026-09-13",
+    "credit": "Westmont College"
+  },
+  {
+    "path": "assets/guang-song.jpg",
+    "source": "https://www.westmont.edu/sites/default/files/GuangSong.jpg",
+    "verifiedAt": "2026-09-13",
+    "credit": "Westmont College"
+  },
+  {
+    "path": "assets/patti-hunter.jpg",
+    "source": "https://www.westmont.edu/sites/default/files/phunter.jpg",
+    "verifiedAt": "2026-09-13",
+    "credit": "Westmont College"
+  },
+  {
+    "path": "assets/kyle-hansen.jpg",
+    "source": "https://www.westmont.edu/sites/default/files/Screenshot%202026-01-02%20at%201.37.19%E2%80%AFPM.png",
+    "verifiedAt": "2026-09-13",
+    "credit": "Westmont College"
+  },
+  {
+    "path": "assets/community.jpg",
+    "source": "https://www.westmont.edu/sites/default/files/Field%20Day%20Photo%201.png",
+    "verifiedAt": "2026-09-13",
+    "credit": "Westmont College"
+  },
+  {
+    "path": "assets/bailey-hall.jpg",
+    "source": "https://www.westmont.edu/sites/default/files/Bailey%20Hall%20%2724_0.jpg",
+    "verifiedAt": "2026-09-13",
+    "credit": "Westmont College"
+  },
+  {
+    "path": "assets/westmont-signature.png",
+    "source": "public/assets/westmont/Primary Signature.zip",
+    "providedBy": "user",
+    "verifiedAt": "2026-09-13",
+    "credit": "Westmont College",
+    "note": "WST_PRIMARY_HORIZ_RGB-HEX.png extracted unchanged."
+  },
+  {
+    "path": "assets/catlab-team.jpg",
+    "source": "https://www.westmont.edu/sites/default/files/styles/16_9_900w/public/DSC_9927%20%281%29.jpg?itok=6lz54hxT",
+    "verifiedAt": "2026-09-13",
+    "credit": "Westmont College · CATLab"
+  }
+]
