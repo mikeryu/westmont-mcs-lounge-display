@@ -1,12 +1,12 @@
 // Top-down lounge layout supplied by the department; viewer faces the TV/north.
 export const officePositions = {
-  'mike-ryu': {side:'left',row:0,label:'Mike',direction:'Ahead to your left'},
-  'kyle-hansen': {side:'left',row:1,label:'Kyle',direction:'To your left'},
-  'maryke-van-der-walt': {side:'left',row:2,label:'Maryke',direction:'Behind you to the left'},
-  'russell-howell': {side:'left',row:3,label:'Russ',direction:'Farther behind to the left'},
-  'anna-aboud': {side:'right',row:0,label:'Anna',direction:'Ahead to your right'},
-  'guang-song': {side:'right',row:1,label:'Guang',direction:'To your right'},
-  'patti-hunter': {side:'right',row:2,label:'Patti',direction:'Behind you to the right'}
+  'mike-ryu': {side:'left',row:0,label:'301',direction:'Ahead to your left'},
+  'kyle-hansen': {side:'left',row:1,label:'303',direction:'To your left'},
+  'maryke-van-der-walt': {side:'left',row:2,label:'305',direction:'Behind you to the left'},
+  'russell-howell': {side:'left',row:3,label:'307',direction:'Farther behind to the left'},
+  'anna-aboud': {side:'right',row:0,label:'302',direction:'Ahead to your right'},
+  'guang-song': {side:'right',row:1,label:'304',direction:'To your right'},
+  'patti-hunter': {side:'right',row:2,label:'306',direction:'Behind you to the right'}
 };
 export function officeArrow(id){
   const p=officePositions[id];
@@ -16,7 +16,7 @@ export function officeArrow(id){
   return `<svg class="office-arrow" viewBox="0 0 100 100" aria-hidden="true"><path d="M20 50H80M58 28L80 50 58 72" transform="rotate(${angle} 50 50)" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 }
 export function officeMap(id){
-  const rooms=[...Object.entries(officePositions).map(([key,p])=>({...p,key})),{side:'right',row:3,label:'Env. Sci.',key:'environmental-science'}];
+  const rooms=[...Object.entries(officePositions).map(([key,p])=>({...p,key})),{side:'right',row:3,label:'308',key:'environmental-science'}];
   return `<svg class="office-map" viewBox="0 0 340 340" role="img" aria-label="Top-down office map, facing the TV. Your location is below the TV; entrance is behind you. Highlighted office: ${officePositions[id]?.label||''}.">
   ${rooms.map(p=>`<rect x="${p.side==='left'?5:235}" y="${p.row*70+12}" width="100" height="56" rx="7" fill="${p.key===id?'#9d2235':'#eeece6'}"/><text x="${p.side==='left'?55:285}" y="${p.row*70+47}" text-anchor="middle" fill="${p.key===id?'white':'#63666a'}">${p.label}</text>`).join('')}
   <rect x="122" y="64" width="96" height="16" rx="3" fill="#25272a"/><text x="170" y="54" text-anchor="middle">TV</text>
