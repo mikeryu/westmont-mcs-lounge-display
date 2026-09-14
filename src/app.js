@@ -1,3 +1,4 @@
+import {officePositions,officeArrow,officeMap} from './office-map.js';
 import {weatherIcon} from './weather-icons.js';
 import {slidesFor,nextIndex,clockParts,weatherURL,parseWeather,weatherLabel,weatherState} from './core.js';
 const $=selector=>document.querySelector(selector);
@@ -11,7 +12,7 @@ function render(){
   const slide=slides[index],p=slide.item;
   let html='';
   if(slide.type==='welcome') html=`<div class="welcome-copy"><h1>You belong<br>here.</h1><div class="welcome-programs">Mathematics<br>Computer Science<br>Data Analytics</div></div><div class="welcome-photo">${photo(data.config.welcomePhoto,'Students collaborating at Mathematics Field Day')}</div>`;
-  if(slide.type==='faculty') html=`<div class="faculty-photo">${photo(p.photo,p.name)}</div><div class="faculty-copy"><div class="eyebrow">MEET OUR FACULTY</div><h1>${escape(p.name)}</h1><p class="faculty-focus">${escape(p.displayFocus)}</p><div class="faculty-office">${escape(p.office)}</div>${p.availability&&Date.parse(p.availability.until)>Date.now()?`<div class="availability">${escape(p.availability.text)}</div>`:''}</div>`;
+  if(slide.type==='faculty') html=`<div class="faculty-photo">${photo(p.photo,p.name)}</div><div class="faculty-copy"><div class="eyebrow">MEET OUR FACULTY</div><h1>${escape(p.name)}</h1><p class="faculty-focus">${escape(p.displayFocus)}</p><div class="office-finder"><div class="office-instructions"><div class="faculty-office">${escape(p.office)}</div><div class="office-direction">${officeArrow(p.id)}<span>${escape(officePositions[p.id]?.direction||'')}</span></div></div>${officeMap(p.id)}</div>${p.availability&&Date.parse(p.availability.until)>Date.now()?`<div class="availability">${escape(p.availability.text)}</div>`:''}</div>`;
   if(slide.type==='alumni') html=`<div class="alumni-copy"><div class="eyebrow">BEYOND WESTMONT / CLASS OF ${p.classYear}</div><h1>${escape(p.name)}</h1><p>${escape(p.displayStory)}</p></div><div class="alumni-art">${p.photo?photo(p.photo,p.name):`<span class="alumni-year">’${String(p.classYear).slice(-2)}</span>`}</div>`;
   if(slide.type==='program') html=`<div class="program-copy"><div class="eyebrow">EXPLORE THE PROGRAM</div><h1>${escape(p.name)}</h1><p>${escape(p.headline)}</p></div><div class="program-initials">${escape(p.shortName)}</div>`;
   if(slide.type==='event'){
@@ -19,9 +20,10 @@ function render(){
     html=`<div class="event-title"><div class="eyebrow">${escape(p.kind)}</div><h1>${escape(p.name)}</h1></div><div class="event-details"><strong>${dateFormat(start,{weekday:'long'})}</strong><span>${dateFormat(start,{month:'long',day:'numeric'})}</span><strong class="event-time">${clockParts(start,data.config.timezone).time}</strong><span>${escape(p.location)}</span></div><div class="event-rsvp"><span>RSVP required · ${escape(p.rsvpContact)}</span><strong>${escape(p.rsvpEmail)}</strong></div>`;
   }
   if(slide.type==='feature') html=`<div class="feature-photo">${photo(p.photo,'CATLab students at the beach')}</div><div class="feature-copy"><h1>${escape(p.name)}</h1><p>${escape(p.displayStory)}</p></div>`;
-  if(slide.type==='conditions') html='<div class="conditions-time"><div class="eyebrow">HERE AT WESTMONT</div><h1 id="large-clock"></h1><p id="large-date"></p></div><div class="conditions-weather"><span class="weather-icon" id="large-weather-icon"></span><strong id="large-temperature"></strong><p id="large-weather"></p><div id="large-weather-note"></div><small>Weather by Open-Meteo</small></div>';
+  const link=data.links[slide.id];
+  $('#drilldown').innerHTML=link?`<a href="${escape(link.url)}"><img src="${escape(link.path)}" alt="QR code: ${escape(link.label)}"><strong>${escape(link.label)}</strong><span>Scan to continue<br>on your phone</span></a>`:'';
   $('#slide').className=slide.type;$('#slide').innerHTML=html;
-  $('#section').textContent=({welcome:'THE LOUNGE',faculty:'OUR FACULTY',alumni:'OUR ALUMNI',program:'OUR PROGRAMS',event:'YOU’RE INVITED',feature:'CATLAB',conditions:'CAMPUS NOW'})[slide.type];
+  $('#section').textContent=({welcome:'THE LOUNGE',faculty:'OUR FACULTY',alumni:'OUR ALUMNI',program:'OUR PROGRAMS',event:'YOU’RE INVITED',feature:'CATLAB'})[slide.type];
   $('#position').textContent=`${index+1} / ${slides.length}`;
   $('#pause').hidden=!paused;
   deadline=Date.now()+data.config.slideSeconds*1000;
@@ -44,11 +46,6 @@ function tick(){
   $('#weather-note').textContent=note;
   const icon=weatherIcon(available?weather.code:null,weather?.isDay!==false);
   if($('#weather-icon').dataset.icon!==icon){$('#weather-icon').innerHTML=icon;$('#weather-icon').dataset.icon=icon;}
-  if($('#large-clock')){
-    $('#large-clock').textContent=clock.time;$('#large-date').textContent=clock.date;
-    $('#large-weather-icon').innerHTML=icon;$('#large-temperature').textContent=temperature;$('#large-weather').textContent=label;
-    $('#large-weather-note').textContent=state==='stale'?'Last known conditions':available?'Current conditions':'Waiting for a connection';
-  }
   document.querySelectorAll('.availability').forEach(el=>{if(Date.parse(slides[index].item?.availability?.until)<=now)el.remove();});
 }
 async function refreshWeather(){

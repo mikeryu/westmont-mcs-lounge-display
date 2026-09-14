@@ -11,9 +11,9 @@ test('real content validates; invalid entries identify their location',()=>{
  assert.ok(validate(broken).some(e=>e.startsWith('config.slideSeconds:')));
 });
 test('rotation handles empty content and wraps both directions',()=>{
- assert.deepEqual(slidesFor({programs:[],faculty:[],events:[],alumni:[]}),[{id:'welcome',type:'welcome'},{id:'conditions',type:'conditions'}]);
+ assert.deepEqual(slidesFor({programs:[],faculty:[],events:[],alumni:[]}),[{id:'welcome',type:'welcome'}]);
  assert.equal(nextIndex(0,-1,13),12);assert.equal(nextIndex(12,1,13),0);
- assert.equal(slidesFor(data,Date.parse('2026-09-14T12:00:00-07:00')).length,16);
+ assert.equal(slidesFor(data,Date.parse('2026-09-14T12:00:00-07:00')).length,15);
 });
 test('events expire at exact end and honor publish time across DST',()=>{
  const event={id:'test',start:'2026-11-01T01:30:00-07:00',end:'2026-11-01T01:30:00-08:00',publishAt:'2026-10-31T00:00:00-07:00'};

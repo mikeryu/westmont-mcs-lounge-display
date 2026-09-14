@@ -24,3 +24,7 @@ README now leads with preview, editing people/stories, adding events, saving to 
 The 640×360 previews are only a proxy: verify the physical lounge TV’s readability from normal seating, overscan, brightness, and sleep settings in person. No full-device reboot or long-duration hardware soak was performed. Screenshots outside the `v2/` folder document the earlier design.
 
 Private-asset separation: build and all eight unit test groups pass. Pi images now live outside releases; both services remain active and the live logo URL responds successfully. Screenshot paths above refer to ignored local evidence, not files available in this public repository.
+
+## QR and rotation update (local verification)
+
+Removed the dedicated conditions slide; 15 views remain before the event cutoff. Faculty office names now use Winter Hall. Build and eight unit test groups pass. Chrome checks pass across all 15 slides, including decoding each rendered QR code to its expected URL/email destination, font use, image loading, text overflow, rotation, event expiry, and weather fallbacks. Faculty and event screenshots were visually reviewed. Office layout was clarified by the user: TV between the first and second office rows, facing south. Faculty slides now show viewer-relative arrows and a highlighted top-down office map. The final browser checks pass; the Patti slide was visually reviewed. Deployed successfully: both Pi services are active and the map module and faculty QR respond over the local display server.

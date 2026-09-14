@@ -7,9 +7,7 @@ export function slidesFor(data, now = Date.now()) {
     for(const [type,items] of [['program',data.programs],['faculty',data.faculty],['alumni',data.alumni],['feature',data.features||[]]]) {
       if(items[i]) slides.push({id:`${type}-${items[i].id}`,type,item:items[i]});
     }
-    if(i===0) slides.push({id:'conditions',type:'conditions'});
   }
-  if(!count) slides.push({id:'conditions',type:'conditions'});
   return slides;
 }
 export function nextIndex(index, delta, length) { return length ? ((index + delta) % length + length) % length : 0; }
