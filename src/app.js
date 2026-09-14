@@ -30,6 +30,12 @@ function render(){
   $('#chapters').innerHTML=groups.map(g=>`<span class="${g===slide.group?'current':''}">${escape(g)}</span>`).join('<i aria-hidden="true"><svg viewBox="0 0 12 20"><path d="m3 3 7 7-7 7"/></svg></i>');
   $('#pause').hidden=!paused;
   deadline=Date.now()+data.config.slideSeconds*1000;
+  // Reset without interpolating backward from the previous slide's progress.
+  const progress=$('#progress');
+  progress.style.transition='none';
+  progress.style.transform='scaleX(0)';
+  void progress.offsetWidth;
+  progress.style.removeProperty('transition');
 }
 function tick(){
   const now=Date.now(),clock=clockParts(now,data.config.timezone);
