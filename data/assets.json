@@ -73,5 +73,19 @@
     "sourceType": "user",
     "verifiedAt": "2026-09-14",
     "credit": "User-supplied portrait of Talia Bjelland"
+  },
+  {
+    "path": "assets/valentina-costarelli.png",
+    "source": "Headshot supplied by Mike Ryu",
+    "sourceType": "user",
+    "verifiedAt": "2026-09-14",
+    "credit": "User-supplied portrait of Valentina Costarelli"
+  },
+  {
+    "path": "assets/john-panos.png",
+    "source": "Headshot supplied by Mike Ryu",
+    "sourceType": "user",
+    "verifiedAt": "2026-09-14",
+    "credit": "User-supplied portrait of John Panos"
   }
 ]

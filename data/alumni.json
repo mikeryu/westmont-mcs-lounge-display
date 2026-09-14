@@ -31,7 +31,8 @@
     "source": "https://www.westmont.edu/magazine/fall-2021/people-friendly-programming",
     "profileUrl": "https://www.linkedin.com/in/john-panos-cs/",
     "verifiedAt": "2026-09-14",
-    "displayStory": "From building campus tools in CATLab to developing software at AppFolio."
+    "displayStory": "From building campus tools in CATLab to developing software at AppFolio.",
+    "photo": "assets/john-panos.png"
   },
   {
     "id": "valentina-costarelli",
@@ -43,6 +44,7 @@
     "profileUrl": "https://www.linkedin.com/in/valentinacostarelli/",
     "verifiedAt": "2026-09-14",
     "displayStory": "AI engineering at Amazon, with a passion for STEM advocacy and education.",
-    "yearNote": "Graduation year confirmed by Mike Ryu on 2026-09-14, overriding conflicting website listings."
+    "yearNote": "Graduation year confirmed by Mike Ryu on 2026-09-14, overriding conflicting website listings.",
+    "photo": "assets/valentina-costarelli.png"
   }
 ]
