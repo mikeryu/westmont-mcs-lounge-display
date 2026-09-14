@@ -32,7 +32,7 @@ export function validate(data) {
         photo(v.photo,path+'.photo');str(v.displayFocus,path+'.displayFocus',75);
         if(v.availability!==null) {str(v.availability?.text,path+'.availability.text',100);timestamp(v.availability?.until,path+'.availability.until');}
       }
-      if(key==='programs') {str(v.shortName,path+'.shortName',4);check(Array.isArray(v.topics)&&v.topics.length<=3,path+'.topics','expected up to 3 topics');if(Array.isArray(v.topics))v.topics.forEach((t,j)=>str(t,path+`.topics[${j}]`,40));}
+      if(key==='programs') {check(Array.isArray(v.offerings)&&v.offerings.length>0&&v.offerings.length<=4,path+'.offerings','expected 1–4 degrees or minors');if(Array.isArray(v.offerings))v.offerings.forEach((o,j)=>str(o,path+`.offerings[${j}]`,40));str(v.shortName,path+'.shortName',4);check(Array.isArray(v.topics)&&v.topics.length<=3,path+'.topics','expected up to 3 topics');if(Array.isArray(v.topics))v.topics.forEach((t,j)=>str(t,path+`.topics[${j}]`,40));}
       if(key==='features'){str(v.displayStory,path+'.displayStory',100);photo(v.photo,path+'.photo');}
       if(key==='alumni') {str(v.displayStory,path+'.displayStory',110);check(Number.isInteger(v.classYear)&&v.classYear>=1937&&v.classYear<=2100,path+'.classYear','expected graduation year');}
       if(key==='events') {

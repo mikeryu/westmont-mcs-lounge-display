@@ -9,7 +9,58 @@
     "longitude": -119.659331,
     "source": "https://www.wikidata.org/wiki/Q3444458",
     "verifiedAt": "2026-09-13",
-    "note": "Campus reference point, converted from 34°26′59.240″N, 119°39′33.592″W. Weather represents a model grid, not a campus sensor."
+    "note": "Campus reference point, converted from 34\u00b026\u203259.240\u2033N, 119\u00b039\u203233.592\u2033W. Weather represents a model grid, not a campus sensor."
   },
-  "welcomePhoto": "assets/community.jpg"
+  "welcomePhoto": "assets/community.jpg",
+  "rotation": [
+    {
+      "label": "EVENT",
+      "ids": [
+        "events"
+      ]
+    },
+    {
+      "label": "DEPT",
+      "ids": [
+        "welcome"
+      ]
+    },
+    {
+      "label": "MATH",
+      "ids": [
+        "program-mathematics",
+        "faculty-russell-howell",
+        "faculty-maryke-van-der-walt",
+        "faculty-anna-aboud",
+        "faculty-patti-hunter",
+        "faculty-kyle-hansen"
+      ]
+    },
+    {
+      "label": "CS",
+      "ids": [
+        "program-computer-science",
+        "faculty-guang-song"
+      ]
+    },
+    {
+      "label": "DA",
+      "ids": [
+        "program-data-analytics",
+        "faculty-mike-ryu"
+      ]
+    },
+    {
+      "label": "ALUMNI",
+      "ids": [
+        "alumni"
+      ]
+    },
+    {
+      "label": "CATLAB",
+      "ids": [
+        "features"
+      ]
+    }
+  ]
 }

@@ -41,7 +41,7 @@ test('Fall Kickoff uses confirmed details and an explicit midnight visibility cu
  const broken=structuredClone(data);broken.events[0].end='2026-09-17T19:00:00-07:00';assert.ok(validate(broken).some(e=>e.includes('not both')));
 });
 test('faculty titles exactly match the department instruction',()=>{
- for(const person of data.faculty){assert.ok(person.id==='mike-ryu'?person.name==='Mike Ryu':person.name.startsWith('Dr. '));assert.ok(!person.name.includes('Ph.D.'));}
+ for(const person of data.faculty){assert.ok(person.id==='mike-ryu'?person.name==='Prof. Mike Ryu':person.name.startsWith('Dr. '));assert.ok(!person.name.includes('Ph.D.'));}
 });
 
 test('local Font Awesome icons handle night, weather families, and unknown conditions',async()=>{
@@ -49,4 +49,12 @@ test('local Font Awesome icons handle night, weather families, and unknown condi
  assert.equal(weatherIconName(0,false),'faMoon');assert.equal(weatherIconName(2,false),'faCloudMoon');
  assert.equal(weatherIconName(65),'faCloudRain');assert.equal(weatherIconName(75),'faSnowflake');assert.equal(weatherIconName(95),'faCloudBolt');assert.equal(weatherIconName(null),'faCircleQuestion');
  for(const code of [0,1,2,3,45,48,51,53,55,56,57,61,63,65,66,67,71,73,75,77,80,81,82,85,86,95,96,99,null])assert.match(weatherIcon(code),/^<svg.*<path/);
+});
+
+test('rotation follows department sequence and keeps new content visible',()=>{
+ const now=Date.parse('2026-09-14T12:00:00-07:00');
+ assert.deepEqual(slidesFor(data,now).map(s=>s.id),['event-fall-kickoff-2026','welcome','program-mathematics','faculty-russell-howell','faculty-maryke-van-der-walt','faculty-anna-aboud','faculty-patti-hunter','faculty-kyle-hansen','program-computer-science','faculty-guang-song','program-data-analytics','faculty-mike-ryu','alumni-bailey-hall','alumni-talia-bjelland','feature-catlab']);
+ const changed=structuredClone(data);changed.faculty.push({...changed.faculty[0],id:'new-person'});
+ assert.equal(slidesFor(changed,now).at(-1).id,'faculty-new-person');
+ assert.equal(slidesFor(data,Date.parse('2026-09-18T07:00:00Z'))[0].id,'welcome');
 });

@@ -9,7 +9,7 @@ try{
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.clock.install({time:new Date('2026-09-14T19:00:00Z')});
  await page.route('https://api.open-meteo.com/**',route=>route.fulfill({json:{current:{temperature_2m:76,weather_code:0,time:Date.parse('2026-09-14T19:00:00Z')/1000}}}));
- await page.goto('http://127.0.0.1:8080');await page.waitForSelector('.welcome-copy');await page.evaluate(()=>document.fonts.ready);
+ await page.goto('http://127.0.0.1:8080');await page.waitForSelector('.event-title');await page.evaluate(()=>document.fonts.ready);
  await page.keyboard.press('Space');
  await mkdir('docs/screenshots/v2',{recursive:true});
  const count=Number((await page.locator('#position').textContent()).split('/')[1]);assert.equal(count,15);
@@ -26,7 +26,7 @@ try{
   await page.screenshot({path:`docs/screenshots/v2/${String(i+1).padStart(2,'0')}-${type}.png`,animations:'disabled'});
   assert.deepEqual(issues,{broken:[],overflow:[]},`Slide ${i+1} ${type}`);
   if(type==='faculty'){
-   const name=await page.locator('h1').textContent();assert.ok(name==='Mike Ryu'||name.startsWith('Dr. '));assert.ok(!name.includes('Ph.D.'));
+   const name=await page.locator('h1').textContent();assert.ok(name==='Prof. Mike Ryu'||name.startsWith('Dr. '));assert.ok(!name.includes('Ph.D.'));
   }
   const root=(await cdp.send('DOM.getDocument')).root.nodeId;
   for(const selector of ['h1','#clock']){

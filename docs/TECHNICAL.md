@@ -6,7 +6,7 @@ Plain JavaScript and CSS; no runtime npm dependencies. `npm run build` validates
 
 The stage is 1920×1080, scaled uniformly to fit smaller preview windows. Faculty and alumni have distinct treatments; program names lead their slides. The persistent status bar uses 86 px time and 52 px weather text. Time and weather remain in the footer; there is no dedicated conditions slide. Main content text is normally 40–166 px. Long background biographies remain in data, not on screen.
 
-The rotation starts with welcome and active events, then interleaves programs, faculty, alumni, and features. Empty categories are skipped; welcome remains. Space pauses/resumes, arrows change slides, Home returns to welcome. The clock and expiry logic continue while paused. `config.slideSeconds` controls dwell time (default 18 seconds; timer granularity one second).
+The rotation follows the ordered groups in config.rotation, starting with active events, then department, Math/faculty, CS/Guang, DA/Mike, alumni, and CATLab. Empty categories are skipped; welcome remains. Space pauses/resumes, arrows change slides, Home returns to welcome. The clock and expiry logic continue while paused. `config.slideSeconds` controls dwell time (default 18 seconds; timer granularity one second).
 
 ### Less common fields
 
@@ -79,3 +79,5 @@ The build creates local black-on-white SVG QR codes using `qrcode`, with a four-
 Office directions use the user-confirmed top-down layout in `src/office-map.js`: TV between the Mike/Kyle and Anna/Guang rows, facing south. The viewer faces north; Mike is ahead-left, Kyle slightly behind-left, and Patti behind-right. This is a schematic, not a scale drawing. The highlighted office and arrow appear on each faculty slide.
 
 Startup is installed by `scripts/install-startup.sh`, called on each deployment. The server service runs `npm start` in the active release (which includes package.json); this invokes Python’s static HTTP server. The browser launcher waits for Wayland and an HTTP response, then opens a full-screen Chromium kiosk window. Desktop auto-login starts the user services at boot.
+
+Program emblems are original static SVG subject illustrations in `src/program-emblems.js`, colored Westmont gold; they are not official College logos. A small footer chapter indicator shows the active rotation group.

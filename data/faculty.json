@@ -46,7 +46,7 @@
   },
   {
     "id": "mike-ryu",
-    "name": "Mike Ryu",
+    "name": "Prof. Mike Ryu",
     "role": "Assistant Professor of Computer Science",
     "headline": "Technology that empowers people",
     "summary": "Connecting software industry experience with teaching that makes computing more accessible.",
@@ -57,7 +57,7 @@
     "availability": null,
     "source": "https://www.westmont.edu/people/mike-ryu",
     "verifiedAt": "2026-09-13",
-    "displayFocus": "Software engineering & CS education"
+    "displayFocus": "The human in the loop for the Agentic AI future"
   },
   {
     "id": "guang-song",

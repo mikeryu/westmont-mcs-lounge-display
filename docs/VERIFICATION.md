@@ -32,3 +32,7 @@ Removed the dedicated conditions slide; 15 views remain before the event cutoff.
 ## Automatic startup update
 
 Installed npm on the Pi and deployed `scripts/install-startup.sh`. Shell syntax checks pass. Both services are enabled and active; the server runs `/usr/bin/npm start` with zero automatic restarts during verification, HTTP responds successfully, and Chromium launches with `--new-window` rather than kiosk mode. Desktop auto-login and graphical boot target are configured. No reboot was performed at the user’s request, so a full boot-cycle test is deferred until the static IP is assigned.
+
+## Content and sequence refinement
+
+Nine unit test groups pass, including the exact requested slide sequence and visibility of newly added content. All 15 browser views pass layout, official font, QR decoding, rotation, and weather checks. Math/CS/DA program slides and Prof. Mike Ryu’s faculty slide were visually inspected at 1080p. They include degree/minor lists, original gold subject illustrations, a subtle footer chapter indicator, and the map to the left of office directions below the tagline.

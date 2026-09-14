@@ -45,7 +45,7 @@ Keep the short descriptions to one sentence. Long paragraphs are hard to read ac
 
 Faculty slides include a top-down office map and arrows from the perspective of someone facing the TV. The entrance is behind the viewer. If offices move, ask the maintainer to update `src/office-map.js`.
 
-Keep **Dr.** before the six doctoral faculty members’ names. **Mike Ryu** has no prefix. `photo` points to an image in `public/assets/`. Keep existing photos unless replacing them with an approved image. QR codes are created automatically from each entry’s `source` webpage. Event codes open an RSVP email draft.
+Keep **Dr.** before the six doctoral faculty members’ names. Use **Prof. Mike Ryu** for Mike. `photo` points to an image in `public/assets/`. Keep existing photos unless replacing them with an approved image. QR codes are created automatically from each entry’s `source` webpage. Event codes open an RSVP email draft.
 
 These files use **JSON**, a text format with quotation marks, commas, and brackets. Keep that punctuation in place. Do not add a comma after the last item in a list. `npm run build` checks for mistakes before anything reaches the TV.
 
@@ -114,3 +114,7 @@ The Pi starts the server and opens a full-screen kiosk window automatically when
 Start with the [short Pi recovery guide](docs/PI.md). It explains restarting the display and returning to the previous version.
 
 For less common changes, data fields, weather details, font installation, and developer checks, see the [technical reference](docs/TECHNICAL.md).
+
+## Change the slide order or degree list
+
+`data/config.json` has a `rotation` list. Its groups run in order: events, department, Math and its faculty, CS and Guang, DA and Mike, alumni, then CATLab. Move IDs within that list to change the order. New entries not listed yet appear at the end. The small footer indicator follows these groups. In `data/programs.json`, edit `offerings` to change the degrees and minors shown on each program slide.

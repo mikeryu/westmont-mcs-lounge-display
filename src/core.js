@@ -1,13 +1,18 @@
 export const activeEvents = (events, now = Date.now()) => events.filter(e => Date.parse(e.end || e.hideAfter) > now && (!e.publishAt || Date.parse(e.publishAt) <= now)).sort((a,b) => Date.parse(a.start)-Date.parse(b.start));
 export function slidesFor(data, now = Date.now()) {
-  const slides = [{id:'welcome',type:'welcome'}];
-  slides.push(...activeEvents(data.events,now).map(item=>({id:`event-${item.id}`,type:'event',item})));
-  const count = Math.max(data.programs.length, data.faculty.length, data.alumni.length, (data.features||[]).length);
-  for(let i=0;i<count;i++) {
-    for(const [type,items] of [['program',data.programs],['faculty',data.faculty],['alumni',data.alumni],['feature',data.features||[]]]) {
-      if(items[i]) slides.push({id:`${type}-${items[i].id}`,type,item:items[i]});
+  const pool=[...activeEvents(data.events,now).map(item=>({id:`event-${item.id}`,type:'event',item})),{id:'welcome',type:'welcome'},
+    ...[['program',data.programs],['faculty',data.faculty],['alumni',data.alumni],['feature',data.features||[]]].flatMap(([type,items])=>items.map(item=>({id:`${type}-${item.id}`,type,item})))];
+  if(!data.config?.rotation)return pool;
+  const slides=[],used=new Set();
+  for(const group of data.config.rotation){
+    for(const id of group.ids){
+      for(const slide of pool.filter(s=>s.id===id||({events:'event',alumni:'alumni',features:'feature'})[id]===s.type)){
+        if(!used.has(slide.id)){slides.push({...slide,group:group.label});used.add(slide.id);}
+      }
     }
   }
+  // Newly added content remains visible even before an editor places it in a group.
+  slides.push(...pool.filter(s=>!used.has(s.id)).map(s=>({...s,group:'MORE'})));
   return slides;
 }
 export function nextIndex(index, delta, length) { return length ? ((index + delta) % length + length) % length : 0; }
