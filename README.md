@@ -107,6 +107,8 @@ The script currently uses `10.127.8.21`. Once IT confirms the new address, you c
 
 New to Git? See the [official Git beginner tutorial](https://git-scm.com/docs/gittutorial).
 
+The Pi starts the server and opens a normal browser window automatically when it boots. Deployment installs this startup setup; see the [Pi guide](docs/PI.md#set-up-automatic-startup-again) to reinstall it.
+
 ## 5. If the TV stops working
 
 Start with the [short Pi recovery guide](docs/PI.md). It explains restarting the display and returning to the previous version.

@@ -28,3 +28,7 @@ Private-asset separation: build and all eight unit test groups pass. Pi images n
 ## QR and rotation update (local verification)
 
 Removed the dedicated conditions slide; 15 views remain before the event cutoff. Faculty office names now use Winter Hall. Build and eight unit test groups pass. Chrome checks pass across all 15 slides, including decoding each rendered QR code to its expected URL/email destination, font use, image loading, text overflow, rotation, event expiry, and weather fallbacks. Faculty and event screenshots were visually reviewed. Office layout was clarified by the user: TV between the first and second office rows, facing south. Faculty slides now show viewer-relative arrows and a highlighted top-down office map. The final browser checks pass; the Patti slide was visually reviewed. Deployed successfully: both Pi services are active and the map module and faculty QR respond over the local display server.
+
+## Automatic startup update
+
+Installed npm on the Pi and deployed `scripts/install-startup.sh`. Shell syntax checks pass. Both services are enabled and active; the server runs `/usr/bin/npm start` with zero automatic restarts during verification, HTTP responds successfully, and Chromium launches with `--new-window` rather than kiosk mode. Desktop auto-login and graphical boot target are configured. No reboot was performed at the user’s request, so a full boot-cycle test is deferred until the static IP is assigned.

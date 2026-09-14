@@ -23,7 +23,7 @@ systemctl --user is-active westmont-display westmont-kiosk
 
 You should see `active` twice. Check the TV, then type `exit` to return to your computer.
 
-The two names refer to the small web server and the full-screen Chrome window. Both are set to start with the Pi’s desktop and restart if they crash.
+The two names refer to the small web server and a normal Chromium browser window. Both are set to start with the Pi’s desktop and restart if they crash.
 
 ## 3. Undo the last deployment
 
@@ -55,3 +55,15 @@ This shows recent service messages. Do not include password files.
 If only weather is missing, the rest of the display should keep working. Check the Pi’s internet connection. Weather retries every 15 minutes; “Last known conditions” means it has older data.
 
 For technical details, see [TECHNICAL.md](TECHNICAL.md). The planned hostname `wmcs-lounge.westmont.edu` should replace the IP in these commands only after IT confirms it is ready.
+
+## Set up automatic startup again
+
+Deploying installs startup automatically. To reinstall it yourself, connect to the Pi and run:
+
+```sh
+sh ~/.local/share/westmont-display/current/scripts/install-startup.sh
+```
+
+At boot, the Pi logs into its desktop, starts `npm start`, and opens the display in a normal browser window. The launcher waits until the desktop and webpage are ready. Both services restart if they stop. The service name `westmont-kiosk` is kept so the recovery commands above still work.
+
+On a replacement Pi, install the prerequisites with `sudo apt-get install npm python3 chromium`. Enable **Desktop Autologin** in `sudo raspi-config`, then deploy. Build tools run on your editing computer; the Pi does not need `npm install`. `npm start` runs the Python static server already defined in this project.
