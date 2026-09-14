@@ -78,4 +78,4 @@ The build creates local black-on-white SVG QR codes using `qrcode`, with a four-
 
 Office directions use the user-confirmed top-down layout in `src/office-map.js`: TV between the Mike/Kyle and Anna/Guang rows, facing south. The viewer faces north; Mike is ahead-left, Kyle slightly behind-left, and Patti behind-right. This is a schematic, not a scale drawing. The highlighted office and arrow appear on each faculty slide.
 
-Startup is installed by `scripts/install-startup.sh`, called on each deployment. The server service runs `npm start` in the active release (which includes package.json); this invokes Python’s static HTTP server. The browser launcher waits for Wayland and an HTTP response, then opens a normal Chromium window. Desktop auto-login starts the user services at boot.
+Startup is installed by `scripts/install-startup.sh`, called on each deployment. The server service runs `npm start` in the active release (which includes package.json); this invokes Python’s static HTTP server. The browser launcher waits for Wayland and an HTTP response, then opens a full-screen Chromium kiosk window. Desktop auto-login starts the user services at boot.

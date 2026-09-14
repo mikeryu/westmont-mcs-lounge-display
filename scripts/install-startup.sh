@@ -26,7 +26,7 @@ WantedBy=default.target
 UNIT
 cat > "$HOME/.config/systemd/user/westmont-kiosk.service" <<UNIT
 [Unit]
-Description=Westmont lounge browser window
+Description=Westmont lounge Chromium kiosk
 After=westmont-display.service
 Requires=westmont-display.service
 StartLimitIntervalSec=0

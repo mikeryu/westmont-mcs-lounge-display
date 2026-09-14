@@ -64,6 +64,6 @@ Deploying installs startup automatically. To reinstall it yourself, connect to t
 sh ~/.local/share/westmont-display/current/scripts/install-startup.sh
 ```
 
-At boot, the Pi logs into its desktop, starts `npm start`, and opens the display in a normal browser window. The launcher waits until the desktop and webpage are ready. Both services restart if they stop. The service name `westmont-kiosk` is kept so the recovery commands above still work.
+At boot, the Pi logs into its desktop, starts `npm start`, and opens the display in a full-screen kiosk window. The launcher waits until the desktop and webpage are ready. Both services restart if they stop. The service name `westmont-kiosk` is kept so the recovery commands above still work.
 
 On a replacement Pi, install the prerequisites with `sudo apt-get install npm python3 chromium`. Enable **Desktop Autologin** in `sudo raspi-config`, then deploy. Build tools run on your editing computer; the Pi does not need `npm install`. `npm start` runs the Python static server already defined in this project.
