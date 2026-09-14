@@ -13,8 +13,8 @@ function render(){
   const slide=slides[index],p=slide.item;
   let html='';
   if(slide.type==='welcome') html=`<div class="welcome-copy"><h1>You<br>belong<br>here.</h1><div class="welcome-programs">Mathematics<br>Computer Science<br>Data Analytics</div></div><div class="welcome-photo">${photo(data.config.welcomePhoto,'Students collaborating at Mathematics Field Day')}</div>`;
-  if(slide.type==='faculty') html=`<div class="faculty-photo">${photo(p.photo,p.name)}</div><div class="faculty-copy"><div class="eyebrow">MEET OUR FACULTY</div><h1>${escape(p.name)}</h1><p class="faculty-focus">${escape(p.displayFocus)}</p><div class="office-finder"><div class="office-instructions"><div class="faculty-office">${escape(p.office)}</div><div class="office-direction">${officeArrow(p.id)}<span>${escape(officePositions[p.id]?.direction||'')}</span></div></div>${officeMap(p.id)}</div>${p.availability&&Date.parse(p.availability.until)>Date.now()?`<div class="availability">${escape(p.availability.text)}</div>`:''}</div>`;
-  if(slide.type==='alumni') html=`<div class="alumni-copy"><div class="eyebrow">BEYOND WESTMONT / CLASS OF ${p.classYear}</div><h1>${escape(p.name)}</h1><p>${escape(p.displayStory)}</p></div><div class="alumni-art">${p.photo?photo(p.photo,p.name):`<span class="alumni-year">’${String(p.classYear).slice(-2)}</span>`}</div>`;
+  if(slide.type==='faculty') html=`<div class="faculty-photo">${photo(p.photo,p.name)}</div><div class="faculty-copy"><div class="eyebrow">MEET OUR FACULTY</div><h1>${escape(p.name)}</h1><p class="faculty-focus">${escape(p.displayFocus)}</p><div class="office-finder"><div class="office-instructions"><div class="office-label">Office Location</div><div class="faculty-office">${escape(p.office)}</div><div class="office-direction">${officeArrow(p.id)}<span>${escape(officePositions[p.id]?.direction||'')}</span></div></div>${officeMap(p.id)}</div>${p.availability&&Date.parse(p.availability.until)>Date.now()?`<div class="availability">${escape(p.availability.text)}</div>`:''}</div>`;
+  if(slide.type==='alumni') html=`<div class="alumni-copy"><div class="eyebrow">BEYOND WESTMONT${p.classYear?` / CLASS OF ${p.classYear}`:''}</div><h1>${escape(p.name)}</h1><p>${escape(p.displayStory)}</p></div><div class="alumni-art">${p.photo?photo(p.photo,p.name):`<span class="alumni-year">${p.classYear?`’${String(p.classYear).slice(-2)}`:p.name.split(' ').map(n=>n[0]).join('')}</span>`}</div>`;
   if(slide.type==='program') html=`<div class="program-copy"><div class="eyebrow">EXPLORE THE PROGRAM</div><h1>${escape(p.name)}</h1><p>${escape(p.headline)}</p><ul class="offerings">${p.offerings.map(o=>`<li>${escape(o)}</li>`).join('')}</ul></div><div class="program-emblem">${programEmblem(p.id)}</div>`;
   if(slide.type==='event'){
     const start=new Date(p.start);
@@ -27,7 +27,7 @@ function render(){
   $('#section').textContent=({welcome:'THE LOUNGE',faculty:'OUR FACULTY',alumni:'OUR ALUMNI',program:'OUR PROGRAMS',event:'YOU’RE INVITED',feature:'CATLAB'})[slide.type];
   $('#position').textContent=`${index+1} / ${slides.length}`;
   const groups=[...new Set(slides.map(s=>s.group))].filter(Boolean);
-  $('#chapters').innerHTML=groups.map(g=>`<span class="${g===slide.group?'current':''}">${escape(g)}</span>`).join('<i>·</i>');
+  $('#chapters').innerHTML=groups.map(g=>`<span class="${g===slide.group?'current':''}">${escape(g)}</span>`).join('<i aria-hidden="true"><svg viewBox="0 0 12 20"><path d="m3 3 7 7-7 7"/></svg></i>');
   $('#pause').hidden=!paused;
   deadline=Date.now()+data.config.slideSeconds*1000;
 }

@@ -14,7 +14,7 @@
   "welcomePhoto": "assets/community.jpg",
   "rotation": [
     {
-      "label": "EVENT",
+      "label": "EVENTS",
       "ids": [
         "events"
       ]

@@ -2,13 +2,14 @@
   {
     "id": "bailey-hall",
     "name": "Bailey Hall",
-    "classYear": 2024,
+    "classYear": 2023,
     "headline": "From mathematics to neural networks.",
     "summary": "After Westmont, Bailey pursued an A3D3 research fellowship at the University of Washington, working on AI methods for brain\u2013computer interfaces.",
     "source": "https://www.westmont.edu/mathematics",
     "verifiedAt": "2026-09-13",
     "photo": "assets/bailey-hall.jpg",
-    "displayStory": "Exploring AI for brain\u2013computer interfaces at the University of Washington."
+    "displayStory": "Exploring AI for brain\u2013computer interfaces at the University of Washington.",
+    "yearNote": "Graduation year confirmed by Mike Ryu on 2026-09-14, overriding conflicting website listings."
   },
   {
     "id": "talia-bjelland",
@@ -20,5 +21,28 @@
     "verifiedAt": "2026-09-13",
     "displayStory": "From building software in CATLab to an internship at Best Buy.",
     "photo": "assets/talia-bjelland.png"
+  },
+  {
+    "id": "john-panos",
+    "name": "John Panos",
+    "classYear": 2023,
+    "headline": "Software that puts people first.",
+    "summary": "At CATLab, John built tools for the campus community. After graduating in 2023, he joined AppFolio as a software developer.",
+    "source": "https://www.westmont.edu/magazine/fall-2021/people-friendly-programming",
+    "profileUrl": "https://www.linkedin.com/in/john-panos-cs/",
+    "verifiedAt": "2026-09-14",
+    "displayStory": "From building campus tools in CATLab to developing software at AppFolio."
+  },
+  {
+    "id": "valentina-costarelli",
+    "name": "Valentina Costarelli",
+    "classYear": 2022,
+    "headline": "AI at the intersection of science and technology.",
+    "summary": "Westmont identifies Valentina as an AI software engineer and team lead at Amazon, with interests in STEM advocacy and education.",
+    "source": "https://msds.westmont.edu/institutes-and-centers/center-for-technology-creativity-and-moral-imagination/technology-ai-advisory-board",
+    "profileUrl": "https://www.linkedin.com/in/valentinacostarelli/",
+    "verifiedAt": "2026-09-14",
+    "displayStory": "AI engineering at Amazon, with a passion for STEM advocacy and education.",
+    "yearNote": "Graduation year confirmed by Mike Ryu on 2026-09-14, overriding conflicting website listings."
   }
 ]

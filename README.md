@@ -45,7 +45,7 @@ Keep the short descriptions to one sentence. Long paragraphs are hard to read ac
 
 Faculty slides include a top-down office map and arrows from the perspective of someone facing the TV. The entrance is behind the viewer. If offices move, ask the maintainer to update `src/office-map.js`.
 
-Keep **Dr.** before the six doctoral faculty members’ names. Use **Prof. Mike Ryu** for Mike. `photo` points to an image in `public/assets/`. Keep existing photos unless replacing them with an approved image. QR codes are created automatically from each entry’s `source` webpage. Event codes open an RSVP email draft.
+Keep **Dr.** before the six doctoral faculty members’ names. Use **Prof. Mike Ryu** for Mike. `photo` points to an image in `public/assets/`. Keep existing photos unless replacing them with an approved image. QR codes are created automatically from each entry’s `source` webpage, or its `profileUrl` when provided (for example, LinkedIn). Event codes open an RSVP email draft.
 
 These files use **JSON**, a text format with quotation marks, commas, and brackets. Keep that punctuation in place. Do not add a comma after the last item in a list. `npm run build` checks for mistakes before anything reaches the TV.
 

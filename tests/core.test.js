@@ -13,7 +13,7 @@ test('real content validates; invalid entries identify their location',()=>{
 test('rotation handles empty content and wraps both directions',()=>{
  assert.deepEqual(slidesFor({programs:[],faculty:[],events:[],alumni:[]}),[{id:'welcome',type:'welcome'}]);
  assert.equal(nextIndex(0,-1,13),12);assert.equal(nextIndex(12,1,13),0);
- assert.equal(slidesFor(data,Date.parse('2026-09-14T12:00:00-07:00')).length,15);
+ assert.equal(slidesFor(data,Date.parse('2026-09-14T12:00:00-07:00')).length,17);
 });
 test('events expire at exact end and honor publish time across DST',()=>{
  const event={id:'test',start:'2026-11-01T01:30:00-07:00',end:'2026-11-01T01:30:00-08:00',publishAt:'2026-10-31T00:00:00-07:00'};
@@ -53,7 +53,7 @@ test('local Font Awesome icons handle night, weather families, and unknown condi
 
 test('rotation follows department sequence and keeps new content visible',()=>{
  const now=Date.parse('2026-09-14T12:00:00-07:00');
- assert.deepEqual(slidesFor(data,now).map(s=>s.id),['event-fall-kickoff-2026','welcome','program-mathematics','faculty-russell-howell','faculty-maryke-van-der-walt','faculty-anna-aboud','faculty-patti-hunter','faculty-kyle-hansen','program-computer-science','faculty-guang-song','program-data-analytics','faculty-mike-ryu','alumni-bailey-hall','alumni-talia-bjelland','feature-catlab']);
+ assert.deepEqual(slidesFor(data,now).map(s=>s.id),['event-fall-kickoff-2026','welcome','program-mathematics','faculty-russell-howell','faculty-maryke-van-der-walt','faculty-anna-aboud','faculty-patti-hunter','faculty-kyle-hansen','program-computer-science','faculty-guang-song','program-data-analytics','faculty-mike-ryu','alumni-bailey-hall','alumni-talia-bjelland','alumni-john-panos','alumni-valentina-costarelli','feature-catlab']);
  const changed=structuredClone(data);changed.faculty.push({...changed.faculty[0],id:'new-person'});
  assert.equal(slidesFor(changed,now).at(-1).id,'faculty-new-person');
  assert.equal(slidesFor(data,Date.parse('2026-09-18T07:00:00Z'))[0].id,'welcome');

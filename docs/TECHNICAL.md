@@ -81,3 +81,5 @@ Office directions use the user-confirmed top-down layout in `src/office-map.js`:
 Startup is installed by `scripts/install-startup.sh`, called on each deployment. The server service runs `npm start` in the active release (which includes package.json); this invokes Python’s static HTTP server. The browser launcher waits for Wayland and an HTTP response, then opens a full-screen Chromium kiosk window. Desktop auto-login starts the user services at boot.
 
 Program emblems are original static SVG subject illustrations in `src/program-emblems.js`, colored Westmont gold; they are not official College logos. A small footer chapter indicator shows the active rotation group.
+
+The rotation strip now occupies its own 50 px row above the clock/weather, with a contrasting light background, chevron separators, and a maroon timer. Main content uses 710 px height. Alumni can supply `profileUrl` for a QR destination separate from the factual `source`. User-confirmed class years take precedence over conflicting pages, recorded in `yearNote`.

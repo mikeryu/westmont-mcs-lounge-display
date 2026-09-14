@@ -15,8 +15,8 @@ await mkdir('dist/qr',{recursive:true});
 const links=[['welcome','https://www.westmont.edu/mathematics','Explore our department'],
  ...['faculty','programs','alumni','features','events'].flatMap(key=>data[key].map(item=>[
  `${({programs:'program',features:'feature',events:'event'})[key]||key}-${item.id}`,
- key==='events'?`mailto:${item.rsvpEmail}?subject=${encodeURIComponent(`RSVP: ${item.name}`)}`:item.source,
- ({faculty:'Meet the professor',programs:'Explore the program',alumni:'Read more on Westmont',features:'Explore CATLab',events:'Email your RSVP'})[key]
+ key==='events'?`mailto:${item.rsvpEmail}?subject=${encodeURIComponent(`RSVP: ${item.name}`)}`:(item.profileUrl||item.source),
+ ({faculty:'Meet the professor',programs:'Explore the program',alumni:item.profileUrl?'Connect on LinkedIn':'Read more on Westmont',features:'Explore CATLab',events:'Email your RSVP'})[key]
  ]))];
 for(const [id,url,label] of links){
  if(!/^(https:\/\/|mailto:)/.test(url))throw Error(`Invalid QR destination: ${id}`);

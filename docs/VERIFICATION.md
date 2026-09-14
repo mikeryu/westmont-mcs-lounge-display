@@ -36,3 +36,7 @@ Installed npm on the Pi and deployed `scripts/install-startup.sh`. Shell syntax 
 ## Content and sequence refinement
 
 Nine unit test groups pass, including the exact requested slide sequence and visibility of newly added content. All 15 browser views pass layout, official font, QR decoding, rotation, and weather checks. Math/CS/DA program slides and Prof. Mike Ryu’s faculty slide were visually inspected at 1080p. They include degree/minor lists, original gold subject illustrations, a subtle footer chapter indicator, and the map to the left of office directions below the tagline.
+
+## Alumni and progression strip update
+
+Added John Panos and Valentina Costarelli using Westmont biographies and the user-supplied LinkedIn QR destinations. Bailey 2023 and Valentina 2022 follow the user’s explicit confirmation. Nine tests and all 17 browser views pass, including QR decoding. The office label, separate progression strip above weather/time, and larger/heavier program emblems were visually reviewed.
