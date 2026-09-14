@@ -65,6 +65,13 @@
     "path": "assets/catlab-team.jpg",
     "source": "https://www.westmont.edu/sites/default/files/styles/16_9_900w/public/DSC_9927%20%281%29.jpg?itok=6lz54hxT",
     "verifiedAt": "2026-09-13",
-    "credit": "Westmont College · CATLab"
+    "credit": "Westmont College \u00b7 CATLab"
+  },
+  {
+    "path": "assets/talia-bjelland.png",
+    "source": "Portrait supplied by Mike Ryu",
+    "sourceType": "user",
+    "verifiedAt": "2026-09-14",
+    "credit": "User-supplied portrait of Talia Bjelland"
   }
 ]
