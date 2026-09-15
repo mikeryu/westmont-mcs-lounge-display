@@ -36,13 +36,18 @@ export function validate(data) {
       if(key==='features'){str(v.displayStory,path+'.displayStory',100);photo(v.photo,path+'.photo');}
       if(key==='alumni') {str(v.displayStory,path+'.displayStory',110);check(v.classYear===null||(Number.isInteger(v.classYear)&&v.classYear>=1937&&v.classYear<=2100),path+'.classYear','expected graduation year');}
       if(key==='events') {
+        if(v.weekly===true){if(v.hideAfter)timestamp(v.hideAfter,path+'.hideAfter');str(v.schedule,path+'.schedule',40);str(v.timeLabel,path+'.timeLabel',30);}else{
         timestamp(v.start,path+'.start');
         check(Boolean(v.end)!==Boolean(v.hideAfter),path,'provide end OR hideAfter, not both');
         const field=v.end?'end':'hideAfter';timestamp(v[field],path+'.'+field);
         check(Date.parse(v[field])>Date.parse(v.start),path+'.'+field,'must follow start');
+        }
+        if(v.timeLabel)str(v.timeLabel,path+'.timeLabel',30);
+        if(v.rsvpDeadline)date(v.rsvpDeadline,path+'.rsvpDeadline');
+        if(v.url)check(/^https:\/\//.test(v.url),path+'.url','expected HTTPS URL');
         str(v.kind,path+'.kind',40);str(v.location,path+'.location',50);
-        str(v.rsvpContact,path+'.rsvpContact',50);str(v.rsvpEmail,path+'.rsvpEmail',60);
-        check(typeof v.rsvpEmail==='string'&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.rsvpEmail),path+'.rsvpEmail','expected email address');
+        if(v.rsvpEmail){str(v.rsvpContact,path+'.rsvpContact',50);str(v.rsvpEmail,path+'.rsvpEmail',60);
+        check(typeof v.rsvpEmail==='string'&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.rsvpEmail),path+'.rsvpEmail','expected email address');}
         if(v.publishAt)timestamp(v.publishAt,path+'.publishAt');
       }
     });

@@ -13,7 +13,7 @@ test('real content validates; invalid entries identify their location',()=>{
 test('rotation handles empty content and wraps both directions',()=>{
  assert.deepEqual(slidesFor({programs:[],faculty:[],events:[],alumni:[]}),[{id:'welcome',type:'welcome'}]);
  assert.equal(nextIndex(0,-1,13),12);assert.equal(nextIndex(12,1,13),0);
- assert.equal(slidesFor(data,Date.parse('2026-09-14T12:00:00-07:00')).length,17);
+ assert.equal(slidesFor(data,Date.parse('2026-09-14T12:00:00-07:00')).length,20);
 });
 test('events expire at exact end and honor publish time across DST',()=>{
  const event={id:'test',start:'2026-11-01T01:30:00-07:00',end:'2026-11-01T01:30:00-08:00',publishAt:'2026-10-31T00:00:00-07:00'};
@@ -34,11 +34,15 @@ test('weather rejects bad data, marks stale, expires cache, and uses campus coor
  const url=new URL(weatherURL(data.config));assert.equal(url.searchParams.get('latitude'),'34.449789');assert.equal(url.searchParams.get('longitude'),'-119.659331');
 });
 
-test('Fall Kickoff uses confirmed details and an explicit midnight visibility cutoff',()=>{
- const e=data.events[0];assert.equal(e.name,'Fall Kickoff');assert.equal(e.start,'2026-09-17T17:30:00-07:00');assert.equal(e.end,undefined);assert.equal(e.hideAfter,'2026-09-18T00:00:00-07:00');assert.equal(e.rsvpEmail,'sleyva@westmont.edu');assert.equal(e.sourceType,'user');
- assert.equal(activeEvents([e],Date.parse('2026-09-18T06:59:59Z')).length,1);
- assert.equal(activeEvents([e],Date.parse('2026-09-18T07:00:00Z')).length,0);
- const broken=structuredClone(data);broken.events[0].end='2026-09-17T19:00:00-07:00';assert.ok(validate(broken).some(e=>e.includes('not both')));
+test('poster events expire and recurring schedules persist',()=>{
+ const dinner=data.events.find(e=>e.id==='fall-kickoff-2026');
+ assert.equal(dinner.end,'2026-09-17T18:30:00-07:00');assert.equal(dinner.rsvpDeadline,'2026-09-10');
+ assert.equal(activeEvents([dinner],Date.parse(dinner.end)).length,0);
+ const talk=data.events.find(e=>e.id==='guang-tea-talk');assert.equal(Date.parse(talk.end)-Date.parse(talk.start),20*60000);
+ assert.equal(activeEvents([talk],Date.parse(talk.end)).length,0);
+ assert.equal(activeEvents(data.events,Date.parse('2026-09-18T07:00:00Z')).length,2);
+ assert.equal(activeEvents(data.events,Date.parse('2026-12-13T07:59:59Z')).length,2);
+ assert.equal(activeEvents(data.events,Date.parse('2026-12-13T08:00:00Z')).length,0);
 });
 test('faculty titles exactly match the department instruction',()=>{
  for(const person of data.faculty){assert.ok(person.id==='mike-ryu'?person.name==='Prof. Mike Ryu':person.name.startsWith('Dr. '));assert.ok(!person.name.includes('Ph.D.'));}
@@ -53,8 +57,8 @@ test('local Font Awesome icons handle night, weather families, and unknown condi
 
 test('rotation follows department sequence and keeps new content visible',()=>{
  const now=Date.parse('2026-09-14T12:00:00-07:00');
- assert.deepEqual(slidesFor(data,now).map(s=>s.id),['event-fall-kickoff-2026','welcome','program-mathematics','faculty-russell-howell','faculty-maryke-van-der-walt','faculty-anna-aboud','faculty-patti-hunter','faculty-kyle-hansen','program-computer-science','faculty-guang-song','program-data-analytics','faculty-mike-ryu','alumni-bailey-hall','alumni-talia-bjelland','alumni-john-panos','alumni-valentina-costarelli','feature-catlab']);
+ assert.deepEqual(slidesFor(data,now).map(s=>s.id),['event-guang-tea-talk','event-fall-kickoff-2026','event-tea-time','event-cs10-tutoring','welcome','program-mathematics','faculty-russell-howell','faculty-maryke-van-der-walt','faculty-anna-aboud','faculty-patti-hunter','faculty-kyle-hansen','program-computer-science','faculty-guang-song','program-data-analytics','faculty-mike-ryu','alumni-bailey-hall','alumni-talia-bjelland','alumni-john-panos','alumni-valentina-costarelli','feature-catlab']);
  const changed=structuredClone(data);changed.faculty.push({...changed.faculty[0],id:'new-person'});
  assert.equal(slidesFor(changed,now).at(-1).id,'faculty-new-person');
- assert.equal(slidesFor(data,Date.parse('2026-09-18T07:00:00Z'))[0].id,'welcome');
+ assert.equal(slidesFor(data,Date.parse('2026-09-18T07:00:00Z'))[0].id,'event-tea-time');
 });

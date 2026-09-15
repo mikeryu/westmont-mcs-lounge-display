@@ -1,4 +1,4 @@
-export const activeEvents = (events, now = Date.now()) => events.filter(e => Date.parse(e.end || e.hideAfter) > now && (!e.publishAt || Date.parse(e.publishAt) <= now)).sort((a,b) => Date.parse(a.start)-Date.parse(b.start));
+export const activeEvents = (events, now = Date.now()) => events.filter(e => ((e.weekly===true&&!e.hideAfter) || Date.parse(e.end || e.hideAfter) > now) && (!e.publishAt || Date.parse(e.publishAt) <= now)).sort((a,b) => (a.weekly?Infinity:Date.parse(a.start))-(b.weekly?Infinity:Date.parse(b.start)));
 export function slidesFor(data, now = Date.now()) {
   const pool=[...activeEvents(data.events,now).map(item=>({id:`event-${item.id}`,type:'event',item})),{id:'welcome',type:'welcome'},
     ...[['program',data.programs],['faculty',data.faculty],['alumni',data.alumni],['feature',data.features||[]]].flatMap(([type,items])=>items.map(item=>({id:`${type}-${item.id}`,type,item})))];

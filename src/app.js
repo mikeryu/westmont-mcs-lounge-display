@@ -17,12 +17,12 @@ function render(){
   if(slide.type==='alumni') html=`<div class="alumni-copy"><div class="eyebrow">BEYOND WESTMONT${p.classYear?` / CLASS OF ${p.classYear}`:''}</div><h1>${escape(p.name)}</h1><p>${escape(p.displayStory)}</p></div><div class="alumni-art">${p.photo?photo(p.photo,p.name):`<span class="alumni-year">${p.classYear?`’${String(p.classYear).slice(-2)}`:p.name.split(' ').map(n=>n[0]).join('')}</span>`}</div>`;
   if(slide.type==='program') html=`<div class="program-copy"><div class="eyebrow">EXPLORE THE PROGRAM</div><h1>${escape(p.name)}</h1><p>${escape(p.headline)}</p><ul class="offerings">${p.offerings.map(o=>`<li>${escape(o)}</li>`).join('')}</ul></div><div class="program-emblem">${programEmblem(p.id)}</div>`;
   if(slide.type==='event'){
-    const start=new Date(p.start);
-    html=`<div class="event-title"><div class="eyebrow">${escape(p.kind)}</div><h1>${escape(p.name)}</h1></div><div class="event-details"><strong>${dateFormat(start,{weekday:'long'})}</strong><span>${dateFormat(start,{month:'long',day:'numeric'})}</span><strong class="event-time">${clockParts(start,data.config.timezone).time}</strong><span>${escape(p.location)}</span></div><div class="event-rsvp"><span>RSVP required · ${escape(p.rsvpContact)}</span><strong>${escape(p.rsvpEmail)}</strong></div>`;
+    const start=p.start?new Date(p.start):null;
+    html=`<div class="event-title"><div class="eyebrow">${escape(p.kind)}</div><h1 class="${p.name.length>30?'long-title':''}">${escape(p.name)}</h1></div><div class="event-details"><strong>${p.weekly?escape(p.schedule):dateFormat(start,{weekday:'long'})}</strong><span>${p.weekly?'Every week':dateFormat(start,{month:'long',day:'numeric'})}</span><strong class="event-time">${escape(p.timeLabel||clockParts(start,data.config.timezone).time)}</strong><span>${escape(p.location)}</span></div><div class="event-rsvp"><span>${escape(p.rsvpEmail?`RSVP deadline: ${p.rsvpDeadline||'Contact organizer'} · ${p.rsvpContact}`:p.detail||'')}</span><strong>${escape(p.rsvpEmail||p.note||'')}</strong></div>`;
   }
   if(slide.type==='feature') html=`<div class="feature-photo">${photo(p.photo,'CATLab students at the beach')}</div><div class="feature-copy"><h1>${escape(p.name)}</h1><p>${escape(p.displayStory)}</p></div>`;
   const link=data.links[slide.id];
-  $('#drilldown').innerHTML=link?`<a href="${escape(link.url)}"><img src="${escape(link.path)}" alt="QR code: ${escape(link.label)}"><strong>${escape(link.label)}</strong><span>Scan to continue<br>on your phone</span></a>`:'';
+  $('#drilldown').innerHTML=link?`<a href="${escape(link.url)}"><img src="${escape(link.path)}" alt="QR code: ${escape(link.label)}"><strong>${escape(link.label)}</strong><span>Scan to continue<br>on your phone</span></a>`:'<div class="event-invitation"><strong>You’re welcome here.</strong><span>Join us in the lounge</span></div>';
   $('#slide').className=slide.type;$('#slide').innerHTML=html;
   $('#section').textContent=({welcome:'THE LOUNGE',faculty:'OUR FACULTY',alumni:'OUR ALUMNI',program:'OUR PROGRAMS',event:'YOU’RE INVITED',feature:'CATLAB'})[slide.type];
   $('#position').textContent=`${index+1} / ${slides.length}`;

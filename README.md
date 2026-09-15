@@ -118,3 +118,9 @@ For less common changes, data fields, weather details, font installation, and de
 ## Change the slide order or degree list
 
 `data/config.json` has a `rotation` list. Its groups run in order: events, department, Math and its faculty, CS and Guang, DA and Mike, alumni, then CATLab. Move IDs within that list to change the order. New entries not listed yet appear at the end. The small footer indicator follows these groups. In `data/programs.json`, edit `offerings` to change the degrees and minors shown on each program slide.
+
+## Weekly activities and poster updates
+
+Tea Time (Tuesdays, 2:30–4 PM) and CS-10 tutoring (Tuesdays and Wednesdays, 6:30–7:30 PM) use `weekly: true`, `schedule`, and `timeLabel` in `data/events.json`. These are standing announcements; remove their entries when they stop or during breaks. The current weekly announcements end after December 12, 2026, using `hideAfter: "2026-12-13T00:00:00-08:00"` (Pacific midnight). Use `detail` and `note` for the short lines below the event. RSVP fields are optional; add `url` only when there is a useful webpage for the QR code.
+
+The Fall Kickoff poster confirms an end time of September 17 at 6:30 PM and a September 10 RSVP deadline, superseding the earlier example’s midnight removal time. Guang’s September 15 talk expires at 3:35 PM after its posted 20-minute duration. One-time events disappear automatically at `end`.

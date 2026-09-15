@@ -40,3 +40,7 @@ Nine unit test groups pass, including the exact requested slide sequence and vis
 ## Alumni and progression strip update
 
 Added John Panos and Valentina Costarelli using Westmont biographies and the user-supplied LinkedIn QR destinations. Bailey 2023 and Valentina 2022 follow the user’s explicit confirmation. Nine tests and all 17 browser views pass, including QR decoding. The office label, separate progression strip above weather/time, and larger/heavier program emblems were visually reviewed.
+
+## Poster events
+
+Transcribed four user-supplied photos and incorporated the confirmed tutoring correction. Nine unit test groups and 20-view browser checks pass. Talk, Tea Time, and tutoring layouts were visually reviewed. Recurring announcements persist until removed; one-time event expiry is tested. No posters are committed to Git.
