@@ -4,6 +4,7 @@ set -eu
 npm_path=$(command -v npm) || { echo "Install npm first: sudo apt-get install npm" >&2; exit 1; }
 command -v python3 >/dev/null
 command -v chromium >/dev/null
+command -v ydotool >/dev/null || { echo "Install pointer helper: sudo apt-get install ydotool" >&2; exit 1; }
 base="$HOME/.local/share/westmont-display"
 [ -f "$base/current/package.json" ]
 # Preserve rollback compatibility with releases made before npm startup.

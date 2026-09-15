@@ -66,4 +66,6 @@ sh ~/.local/share/westmont-display/current/scripts/install-startup.sh
 
 At boot, the Pi logs into its desktop, starts `npm start`, and opens the display in a full-screen kiosk window. The launcher waits until the desktop and webpage are ready. Both services restart if they stop. The service name `westmont-kiosk` is kept so the recovery commands above still work.
 
-On a replacement Pi, install the prerequisites with `sudo apt-get install npm python3 chromium`. Enable **Desktop Autologin** in `sudo raspi-config`, then deploy. Build tools run on your editing computer; the Pi does not need `npm install`. `npm start` runs the Python static server already defined in this project.
+On a replacement Pi, install the prerequisites with `sudo apt-get install npm python3 chromium ydotool`. Enable **Desktop Autologin** in `sudo raspi-config`, then deploy. Build tools run on your editing computer; the Pi does not need `npm install`. `npm start` runs the Python static server already defined in this project.
+
+At browser startup, `scripts/nudge-pointer.sh` moves the pointer one small step twice, about 9 and 20 seconds after launch. This lets Chromium apply the page’s invisible cursor after power recovery. The physical mouse still works. The helper uses Bookworm’s ydotool 0.1.x and the Pi account’s existing passwordless sudo; failures are logged but do not stop the display. No ongoing mouse movement is scheduled.

@@ -44,3 +44,7 @@ Added John Panos and Valentina Costarelli using Westmont biographies and the use
 ## Poster events
 
 Transcribed four user-supplied photos and incorporated the confirmed tutoring correction. Nine unit test groups and 20-view browser checks pass. Talk, Tea Time, and tutoring layouts were visually reviewed. Recurring announcements persist until removed; one-time event expiry is tested. No posters are committed to Git.
+
+## Startup pointer nudge
+
+Installed Bookworm ydotool and deployed a bounded startup helper. Pi journal confirms both nudges succeeded, the helper exited, and both display services stayed active. A compositor screenshot captured with `grim -c` (include cursor) was visually checked and showed no pointer. Tested by service restart, not a power-cycle or reboot.
