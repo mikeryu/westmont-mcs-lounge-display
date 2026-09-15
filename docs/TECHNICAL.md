@@ -82,4 +82,6 @@ Startup is installed by `scripts/install-startup.sh`, called on each deployment.
 
 Program emblems are original static SVG subject illustrations in `src/program-emblems.js`, colored Westmont gold; they are not official College logos. A small footer chapter indicator shows the active rotation group.
 
+The build adds a content version to JavaScript imports and stylesheet URLs. The kiosk also opens a versioned entry-page URL, so a deployment cannot reuse an older cached page and mix old application code with new event data. No manual cache clearing is needed. Browser checks can target another local preview port with `DISPLAY_TEST_URL=http://127.0.0.1:8081 npm run test:browser`.
+
 The rotation strip now occupies its own 50 px row above the clock/weather, with a contrasting light background, chevron separators, and a maroon timer. Main content uses 710 px height. Alumni can supply `profileUrl` for a QR destination separate from the factual `source`. User-confirmed class years take precedence over conflicting pages, recorded in `yearNote`.

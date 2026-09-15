@@ -9,7 +9,7 @@ try{
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.clock.install({time:new Date('2026-09-14T19:00:00Z')});
  await page.route('https://api.open-meteo.com/**',route=>route.fulfill({json:{current:{temperature_2m:76,weather_code:0,time:Date.parse('2026-09-14T19:00:00Z')/1000}}}));
- await page.goto('http://127.0.0.1:8080');await page.waitForSelector('.event-title');await page.evaluate(()=>document.fonts.ready);
+ await page.goto(process.env.DISPLAY_TEST_URL||'http://127.0.0.1:8080');await page.waitForSelector('.event-title');await page.evaluate(()=>document.fonts.ready);
  await page.clock.runFor(2500);
  assert.ok(await page.locator('#progress').evaluate(el=>new DOMMatrixReadOnly(getComputedStyle(el).transform).a)>0,'Progress advances');
  await page.keyboard.press('ArrowRight');

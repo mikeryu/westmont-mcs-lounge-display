@@ -48,3 +48,7 @@ Transcribed four user-supplied photos and incorporated the confirmed tutoring co
 ## Startup pointer nudge
 
 Installed Bookworm ydotool and deployed a bounded startup helper. Pi journal confirms both nudges succeeded, the helper exited, and both display services stayed active. A compositor screenshot captured with `grim -c` (include cursor) was visually checked and showed no pointer. Tested by service restart, not a power-cycle or reboot.
+
+## Cached release fix
+
+Chromium was displaying older application code alongside current event data, preventing the weekly event slides from rendering correctly. Versioned the entry page, JavaScript imports, and stylesheet URLs. Build, nine unit test groups, and all 20 browser views pass. After deployment, Pi HTTP logs confirm requests for the versioned files; actual compositor screenshots verify both Tea Time and CS-10 Tutoring with their correct schedules and layouts. Both services remain active. No Pi reboot or network changes were performed.
