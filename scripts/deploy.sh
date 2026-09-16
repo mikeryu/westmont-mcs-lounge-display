@@ -1,7 +1,7 @@
 #!/bin/sh
 # Uses normal SSH authentication. Never package credentials or the repository.
 set -eu
-target=${1:-mcs-lounge@10.127.8.21}
+target=$(sh "$(dirname "$0")/pi-target.sh" "${1:-}")
 npm run build
 release="$(date -u +%Y%m%dT%H%M%SZ)"
 archive=$(mktemp)

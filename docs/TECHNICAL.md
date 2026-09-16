@@ -36,13 +36,15 @@ Refresh every 15 minutes, timeout 10 seconds. Cache observations in localStorage
 
 ## Deployment internals
 
+`config/pi-target` holds a single SSH destination (user@hostname or user@IPv4). It is ignored by Git and excluded from release archives. Deployment, private-asset fetching, and `scripts/ssh-pi.sh` all use `scripts/pi-target.sh` to read and validate it as plain text. Deploy/fetch accept an optional destination argument that overrides the file. No destination is embedded in the application.
+
 The inspected Pi is a Raspberry Pi 5 running Bookworm, labwc/Wayland, Chromium, and Python 3. Existing desktop autologin starts its user services. `scripts/deploy.sh` builds locally, creates a dated release under `~/.local/share/westmont-display/releases/`, installs fonts, updates `current` and `previous` symlinks, and restarts the services.
 
 The Python server listens on loopback port 8080. Chromium has a dedicated profile at `~/.local/share/westmont-display/chromium`, uses Wayland, and waits for the compositor socket. `--password-store=basic` avoids the initial keyring dialog; this profile does not store login credentials. Its browser sandbox remains enabled. Server and kiosk exits restart after three and five seconds respectively.
 
 Service files are under `~/.config/systemd/user/`. To pause the kiosk for maintenance, run `systemctl --user stop westmont-kiosk`; to resume, use `start`. To disable both at login, use `systemctl --user disable --now westmont-kiosk westmont-display`. Existing desktop files and unrelated services are preserved.
 
-For SSH-tunneled viewing from your computer: `ssh -L 8081:127.0.0.1:8080 mcs-lounge@10.127.8.21`, then open http://127.0.0.1:8081. No campus-facing web listener is required. The requested new DNS name is not assumed active.
+For SSH-tunneled viewing from your computer: `sh scripts/ssh-pi.sh -L 8081:127.0.0.1:8080`, then open http://127.0.0.1:8081. No campus-facing web listener is required. The requested new DNS name is not assumed active.
 
 Rollback in PI.md switches app and launcher files. If a future release changes service definitions, run the selected release’s `scripts/install-pi.sh` to restore those definitions. The installer does not overwrite `previous` when reinstalling the already selected release. Keep older releases until the new version is accepted.
 

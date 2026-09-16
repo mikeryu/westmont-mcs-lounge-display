@@ -103,7 +103,7 @@ sh scripts/deploy.sh
 
 Enter the Pi’s password if prompted. Typing a password in Terminal normally shows no characters. The command finishes with two `active` lines when both services are running. Check the TV afterward. **Pushing to Git alone does not update the TV.**
 
-The script currently uses `10.127.8.21`. Once IT confirms the new address, you can use `sh scripts/deploy.sh mcs-lounge@wmcs-lounge.westmont.edu` instead.
+The scripts read the Pi destination from `config/pi-target` on your computer. When its address changes, edit that one file. It stays out of Git and is not sent to the TV. See [setup](docs/SETUP.md) if the file is missing. You can override it for one deployment with `sh scripts/deploy.sh user@host`.
 
 New to Git? See the [official Git beginner tutorial](https://git-scm.com/docs/gittutorial).
 

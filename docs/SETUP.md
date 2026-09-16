@@ -4,7 +4,15 @@ Do this once on the computer you will use to edit the display.
 
 1. Get a copy of this repository using Git. Open its folder in a plain-text/code editor, not Word.
 2. Install Node.js 22 or newer and Python 3 if they are not already installed. Campus IT can help with this step.
-3. Open a Terminal in the project folder. Run:
+3. Open a Terminal in the project folder. Create your local Pi configuration:
+
+```sh
+cp config/pi-target.example config/pi-target
+```
+
+Open `config/pi-target` in your editor. Replace `REPLACE-WITH-PI-ADDRESS` with the current address supplied by the maintainer, keeping `mcs-lounge@` before it. Keep just that one line, with no quotes or password. This file stays on your computer and is ignored by Git. Once IT confirms the internal domain works, you can use `mcs-lounge@wmcs-lounge.westmont.edu` instead.
+
+Then run:
 
 ```sh
 npm ci

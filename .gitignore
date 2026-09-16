@@ -8,3 +8,6 @@ SSHPW.key
 # Private College imagery, font archives, and screenshots stay off GitHub.
 public/assets/
 docs/screenshots/
+
+# Each editor configures the Pi destination locally.
+/config/pi-target

@@ -8,10 +8,10 @@ Check that the TV is on, the correct HDMI input is selected, and the Pi has powe
 
 ## 2. Restart the display
 
-On your computer, open Terminal and connect to the Pi:
+On your computer, open Terminal in this project’s folder and connect to the Pi:
 
 ```sh
-ssh mcs-lounge@10.127.8.21
+sh scripts/ssh-pi.sh
 ```
 
 Enter the password if prompted. You are now typing commands **on the Pi**. Run:
@@ -23,7 +23,7 @@ systemctl --user is-active westmont-display westmont-kiosk
 
 You should see `active` twice. Check the TV, then type `exit` to return to your computer.
 
-The two names refer to the small web server and a normal Chromium browser window. Both are set to start with the Pi’s desktop and restart if they crash.
+The two names refer to the small web server and a full-screen Chromium kiosk window. Both are set to start with the Pi’s desktop and restart if they crash.
 
 ## 3. Undo the last deployment
 
@@ -54,7 +54,7 @@ This shows recent service messages. Do not include password files.
 
 If only weather is missing, the rest of the display should keep working. Check the Pi’s internet connection. Weather retries every 15 minutes; “Last known conditions” means it has older data.
 
-For technical details, see [TECHNICAL.md](TECHNICAL.md). The planned hostname `wmcs-lounge.westmont.edu` should replace the IP in these commands only after IT confirms it is ready.
+For technical details, see [TECHNICAL.md](TECHNICAL.md). If the Pi address changes, update `config/pi-target` on your computer. Use the planned hostname `wmcs-lounge.westmont.edu` there only after IT confirms it is ready.
 
 ## Set up automatic startup again
 
