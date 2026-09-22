@@ -22,7 +22,7 @@ function render(){
   }
   if(slide.type==='feature') html=`<div class="feature-photo">${photo(p.photo,'CATLab students at the beach')}</div><div class="feature-copy"><h1>${escape(p.name)}</h1><p>${escape(p.displayStory)}</p></div>`;
   const link=data.links[slide.id];
-  $('#drilldown').innerHTML=link?`<a href="${escape(link.url)}"><img src="${escape(link.path)}" alt="QR code: ${escape(link.label)}"><strong>${escape(link.label)}</strong><span>Scan to continue<br>on your phone</span></a>`:'<div class="event-invitation"><strong>You’re welcome here.</strong><span>Join us in the lounge</span></div>';
+  $('#drilldown').innerHTML=link?`<a href="${escape(link.url)}"><img src="${escape(link.path)}" alt="QR code: ${escape(link.label)}"><strong>${escape(link.label)}</strong><span>Scan to continue<br>on your phone</span></a>`:'<div class="event-invitation"><strong>You’re welcome here.</strong><span>Join us!</span></div>';
   $('#slide').className=slide.type;$('#slide').innerHTML=html;
   $('#section').textContent=({welcome:'THE LOUNGE',faculty:'OUR FACULTY',alumni:'OUR ALUMNI',program:'OUR PROGRAMS',event:'YOU’RE INVITED',feature:'CATLAB'})[slide.type];
   $('#position').textContent=`${index+1} / ${slides.length}`;

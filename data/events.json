@@ -12,7 +12,7 @@
     "verifiedAt": "2026-09-14",
     "end": "2026-09-17T18:30:00-07:00",
     "rsvpDeadline": "2026-09-10",
-    "timeLabel": "5:30\u20136:30 PM"
+    "timeLabel": "5:30–6:30 PM"
   },
   {
     "sourceType": "user",
@@ -23,9 +23,9 @@
     "kind": "Weekly gathering",
     "weekly": true,
     "schedule": "Tuesdays",
-    "timeLabel": "2:30\u20134 PM",
+    "timeLabel": "2:30–4 PM",
     "detail": "Majors, minors, undeclared & interested students",
-    "note": "Bring your mug \u00b7 Loaner mugs available",
+    "note": "Bring your mug · Loaner mugs available",
     "source": "Tea Time posters IMG_9971 and IMG_9972 supplied by Mike Ryu",
     "hideAfter": "2026-12-13T00:00:00-08:00"
   },
@@ -39,7 +39,7 @@
     "start": "2026-09-15T15:15:00-07:00",
     "end": "2026-09-15T15:35:00-07:00",
     "timeLabel": "3:15 PM",
-    "detail": "Dr. Guang Song \u00b7 20-minute talk",
+    "detail": "Dr. Guang Song · 20-minute talk",
     "note": "Join us during Tea Time",
     "url": "https://www.westmont.edu/people/guang-song-phd",
     "source": "Tea Time Talk annotation in IMG_9971 supplied by Mike Ryu"
@@ -53,10 +53,25 @@
     "kind": "Weekly tutoring",
     "weekly": true,
     "schedule": "Tuesdays & Wednesdays",
-    "timeLabel": "6:30\u20137:30 PM",
+    "timeLabel": "6:30–7:30 PM",
     "detail": "Drop in!",
     "note": "Winter Hall MA/CS Lounge",
-    "source": "IMG_9974 poster; handwritten Tuesday/Wednesday 6:30\u20137:30 PM confirmed by Mike Ryu",
+    "source": "IMG_9974 poster; handwritten Tuesday/Wednesday 6:30–7:30 PM confirmed by Mike Ryu",
     "hideAfter": "2026-12-13T00:00:00-08:00"
+  },
+  {
+    "id": "howell-math-colloquium-2026-10-06",
+    "name": "Math Colloquium",
+    "kind": "Free pizza lunch",
+    "start": "2026-10-06T12:00:00-07:00",
+    "end": "2026-10-06T13:00:00-07:00",
+    "publishAt": "2026-09-22T00:00:00-07:00",
+    "timeLabel": "12–1 PM",
+    "location": "Winter Hall 106",
+    "detail": "Dr. Russ Howell · Professor of Mathematics",
+    "note": "Westmont Research Associate",
+    "source": "Event announcement supplied by Mike Ryu; talk title forthcoming",
+    "sourceType": "user",
+    "verifiedAt": "2026-09-22"
   }
 ]
