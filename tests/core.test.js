@@ -62,3 +62,9 @@ test('rotation follows department sequence and keeps new content visible',()=>{
  assert.equal(slidesFor(changed,now).at(-1).id,'faculty-new-person');
  assert.equal(slidesFor(data,Date.parse('2026-09-18T07:00:00Z'))[0].id,'event-tea-time');
 });
+
+test('external application advert disappears after the signup window',()=>{
+ const event=data.events.find(e=>e.id==='unwrapathon-2026');
+ assert.equal(activeEvents([event],Date.parse('2026-10-10T23:59:59-07:00')).length,1);
+ assert.equal(activeEvents([event],Date.parse('2026-10-11T00:00:00-07:00')).length,0);
+});

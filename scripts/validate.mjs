@@ -49,6 +49,7 @@ export function validate(data) {
         if(v.rsvpEmail){str(v.rsvpContact,path+'.rsvpContact',50);str(v.rsvpEmail,path+'.rsvpEmail',60);
         check(typeof v.rsvpEmail==='string'&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.rsvpEmail),path+'.rsvpEmail','expected email address');}
         if(v.publishAt)timestamp(v.publishAt,path+'.publishAt');
+        if(v.publishUntil)timestamp(v.publishUntil,path+'.publishUntil');
       }
     });
   }

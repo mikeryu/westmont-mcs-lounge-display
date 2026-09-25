@@ -82,5 +82,28 @@
     "abstract": "Recursion is a fundamental theme in computer science, but it is not always given a robust treatment in mathematics curricula. Conversely, students of computer science do not always get exposed to the mathematical underpinnings of this fascinating topic. This talk explores recursion from mathematical and computational viewpoints, exhibits how recursive algorithms operate in computer memory, and illustrates mathematical techniques for solving various recursive problems—including how to determine the maximum number of pieces that can be formed when a pizza is cut a given number of times.",
     "rsvpEmail": "howell@westmont.edu",
     "rsvpContact": "Dr. Russ Howell"
+  },
+  {
+    "id": "unwrapathon-2026",
+    "name": "Unwrapathon",
+    "kind": "External event · Unwrap",
+    "external": true,
+    "start": "2026-10-23T00:00:00-07:00",
+    "hideAfter": "2026-10-26T00:00:00-07:00",
+    "publishAt": "2026-09-25T00:00:00-07:00",
+    "publishUntil": "2026-10-11T00:00:00-07:00",
+    "dateLabel": "October 23–25",
+    "location": "419 State Street, Santa Barbara",
+    "venue": "Unwrap HQ",
+    "registrationLabel": "Apply by October 10",
+    "teaser": "Build real AI solutions with Unwrap engineers.",
+    "audience": "CS & engineering students · Especially seniors and internship-ready juniors",
+    "detail": "Employment opportunity",
+    "note": "Possible full-time roles & summer 2027 internships",
+    "url": "https://www.unwrap.ai/hackathon",
+    "qrLabel": "Details & application",
+    "source": "https://www.unwrap.ai/hackathon",
+    "verifiedAt": "2026-09-25",
+    "sourceNote": "Olivia Garcia Herrera email, Unwrap Hackathon 10/23-10/25, September 24, 2026; flyer confirms address and application deadline. Times not supplied; date boundaries are visibility settings."
   }
 ]
