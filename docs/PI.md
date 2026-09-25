@@ -23,7 +23,7 @@ systemctl --user is-active westmont-display westmont-kiosk
 
 You should see `active` twice. Check the TV, then type `exit` to return to your computer.
 
-The two names refer to the small web server and a full-screen Chromium kiosk window. Both are set to start with the Pi’s desktop and restart if they crash.
+The two names refer to the small web server and a full-screen Chromium kiosk window. Both start with the Pi’s desktop. If you close Chromium, it waits one minute before reopening so you can use the desktop. For longer maintenance, run `systemctl --user stop westmont-kiosk`; when finished, run `systemctl --user start westmont-kiosk`. The web server restarts after three seconds if it exits.
 
 ## 3. Undo the last deployment
 

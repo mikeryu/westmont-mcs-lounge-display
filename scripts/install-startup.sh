@@ -34,7 +34,7 @@ StartLimitIntervalSec=0
 [Service]
 ExecStart=/bin/sh %h/.local/share/westmont-display/current/scripts/kiosk.sh
 Restart=always
-RestartSec=5
+RestartSec=60
 TimeoutStopSec=15
 [Install]
 WantedBy=default.target

@@ -17,7 +17,7 @@ const links=[['welcome','https://www.westmont.edu/mathematics','Explore our depa
  ...['faculty','programs','alumni','features','events'].flatMap(key=>data[key].filter(item=>key!=='events'||item.rsvpEmail||item.url).map(item=>[
  `${({programs:'program',features:'feature',events:'event'})[key]||key}-${item.id}`,
  key==='events'?(item.url||`mailto:${item.rsvpEmail}?subject=${encodeURIComponent(`Question about ${item.name}`)}`):(item.profileUrl||item.source),
- ({faculty:'Meet the professor',programs:'Explore the program',alumni:item.profileUrl?'Connect on LinkedIn':'Read more on Westmont',features:'Explore CATLab',events:item.url?'Meet the speaker':'Contact the organizer'})[key]
+ item.qrLabel||({faculty:'Meet the professor',programs:'Explore the program',alumni:item.profileUrl?'Connect on LinkedIn':'Read more on Westmont',features:'Explore CATLab',events:item.url?'Meet the speaker':'Contact the organizer'})[key]
  ]))];
 for(const [id,url,label] of links){
  if(!/^(https:\/\/|mailto:)/.test(url))throw Error(`Invalid QR destination: ${id}`);

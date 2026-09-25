@@ -40,7 +40,7 @@ Refresh every 15 minutes, timeout 10 seconds. Cache observations in localStorage
 
 The inspected Pi is a Raspberry Pi 5 running Bookworm, labwc/Wayland, Chromium, and Python 3. Existing desktop autologin starts its user services. `scripts/deploy.sh` builds locally, creates a dated release under `~/.local/share/westmont-display/releases/`, installs fonts, updates `current` and `previous` symlinks, and restarts the services.
 
-The Python server listens on loopback port 8080. Chromium has a dedicated profile at `~/.local/share/westmont-display/chromium`, uses Wayland, and waits for the compositor socket. `--password-store=basic` avoids the initial keyring dialog; this profile does not store login credentials. Its browser sandbox remains enabled. Server and kiosk exits restart after three and five seconds respectively.
+The Python server listens on loopback port 8080. Chromium has a dedicated profile at `~/.local/share/westmont-display/chromium`, uses Wayland, and waits for the compositor socket. `--password-store=basic` avoids the initial keyring dialog; this profile does not store login credentials. Its browser sandbox remains enabled. Server and kiosk exits restart after three seconds and one minute respectively.
 
 Service files are under `~/.config/systemd/user/`. To pause the kiosk for maintenance, run `systemctl --user stop westmont-kiosk`; to resume, use `start`. To disable both at login, use `systemctl --user disable --now westmont-kiosk westmont-display`. Existing desktop files and unrelated services are preserved.
 

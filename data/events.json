@@ -61,17 +61,26 @@
   },
   {
     "id": "howell-math-colloquium-2026-10-06",
-    "name": "Math Colloquium",
-    "kind": "Free pizza lunch",
+    "name": "RAM and Recursion",
+    "kind": "Math Colloquium",
     "start": "2026-10-06T12:00:00-07:00",
     "end": "2026-10-06T13:00:00-07:00",
     "publishAt": "2026-09-22T00:00:00-07:00",
     "timeLabel": "12–1 PM",
     "location": "Winter Hall 106",
-    "detail": "Dr. Russ Howell · Professor of Mathematics",
-    "note": "Westmont Research Associate",
-    "source": "Event announcement supplied by Mike Ryu; talk title forthcoming",
+    "detail": "Lunch provided",
+    "note": "Free pizza lunch",
+    "source": "Updated colloquium blurb and portrait supplied by Mike Ryu",
     "sourceType": "user",
-    "verifiedAt": "2026-09-22"
+    "verifiedAt": "2026-09-22",
+    "photo": "assets/howell-colloquium.png",
+    "speaker": "Dr. Russ Howell",
+    "speakerRole": "Professor of Mathematics · Westmont Research Associate",
+    "teaser": "Recursion, computer memory, and the mathematics of pizza cuts.",
+    "qrLabel": "Email your answer",
+    "challengeDeadline": "2026-10-05T21:00:00-07:00",
+    "abstract": "Recursion is a fundamental theme in computer science, but it is not always given a robust treatment in mathematics curricula. Conversely, students of computer science do not always get exposed to the mathematical underpinnings of this fascinating topic. This talk explores recursion from mathematical and computational viewpoints, exhibits how recursive algorithms operate in computer memory, and illustrates mathematical techniques for solving various recursive problems—including how to determine the maximum number of pieces that can be formed when a pizza is cut a given number of times.",
+    "rsvpEmail": "howell@westmont.edu",
+    "rsvpContact": "Dr. Russ Howell"
   }
 ]

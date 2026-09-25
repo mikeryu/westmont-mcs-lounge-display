@@ -20,10 +20,14 @@ function render(){
     const start=p.start?new Date(p.start):null;
     html=`<div class="event-title"><div class="eyebrow">${escape(p.kind)}</div><h1 class="${p.name.length>30?'long-title':''}">${escape(p.name)}</h1></div><div class="event-details"><strong>${p.weekly?escape(p.schedule):dateFormat(start,{weekday:'long'})}</strong><span>${p.weekly?'Every week':dateFormat(start,{month:'long',day:'numeric'})}</span><strong class="event-time">${escape(p.timeLabel||clockParts(start,data.config.timezone).time)}</strong><span>${escape(p.location)}</span></div><div class="event-rsvp"><span>${escape(p.rsvpEmail?`RSVP deadline: ${p.rsvpDeadline||'Contact organizer'} · ${p.rsvpContact}`:p.detail||'')}</span><strong>${escape(p.rsvpEmail||p.note||'')}</strong></div>`;
   }
+  if(slide.type==='event'&&p.speaker){
+    const challenge=Date.now()<=Date.parse(p.challengeDeadline);
+    html=`<div class="colloquium-portrait">${photo(p.photo,p.speaker)}</div><div class="colloquium-copy"><div class="eyebrow">${escape(p.kind)}</div><h1>${escape(p.name)}</h1><div class="colloquium-speaker">${escape(p.speaker)}</div><div class="colloquium-role">${escape(p.speakerRole)}</div><p class="colloquium-teaser">${escape(p.teaser)}</p><div class="colloquium-when">${dateFormat(new Date(p.start),{weekday:"long",month:"long",day:"numeric"})} · ${escape(p.timeLabel)}<br>${escape(p.location)} <span>FREE PIZZA LUNCH</span></div></div><div class="colloquium-challenge">${challenge?`<strong>What does “RAM” mean in this talk’s title?</strong><p>Special awards for the first two students to email the correct answer.</p><div><b>Monday, October 5 · 9 PM deadline</b><span>howell@westmont.edu</span></div>`:`<strong>Explore recursion from mathematics to computer memory.</strong><p>Join Dr. Howell for the talk and lunch.</p>`}</div>`;
+  }
   if(slide.type==='feature') html=`<div class="feature-photo">${photo(p.photo,'CATLab students at the beach')}</div><div class="feature-copy"><h1>${escape(p.name)}</h1><p>${escape(p.displayStory)}</p></div>`;
   const link=data.links[slide.id];
-  $('#drilldown').innerHTML=link?`<a href="${escape(link.url)}"><img src="${escape(link.path)}" alt="QR code: ${escape(link.label)}"><strong>${escape(link.label)}</strong><span>Scan to continue<br>on your phone</span></a>`:'<div class="event-invitation"><strong>You’re welcome here.</strong><span>Join us!</span></div>';
-  $('#slide').className=slide.type;$('#slide').innerHTML=html;
+  $('#drilldown').innerHTML=link?`<a href="${escape(link.url)}"><img src="${escape(link.path)}" alt="QR code: ${escape(p?.challengeDeadline&&Date.now()>Date.parse(p.challengeDeadline)?"Contact the speaker":link.label)}"><strong>${escape(p?.challengeDeadline&&Date.now()>Date.parse(p.challengeDeadline)?"Contact the speaker":link.label)}</strong><span>Scan to continue<br>on your phone</span></a>`:'<div class="event-invitation"><strong>You’re welcome here.</strong><span>Join us!</span></div>';
+  $('#slide').className=slide.type+(slide.type==='event'&&p.speaker?' colloquium':'');$('#slide').innerHTML=html;
   $('#section').textContent=({welcome:'THE LOUNGE',faculty:'OUR FACULTY',alumni:'OUR ALUMNI',program:'OUR PROGRAMS',event:'YOU’RE INVITED',feature:'CATLAB'})[slide.type];
   $('#position').textContent=`${index+1} / ${slides.length}`;
   const groups=[...new Set(slides.map(s=>s.group))].filter(Boolean);
