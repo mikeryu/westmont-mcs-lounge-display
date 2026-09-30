@@ -98,12 +98,12 @@ git push
 Then update the TV:
 
 ```sh
-sh scripts/deploy.sh
+DISPLAY_CONTROLS_CONFIG=config/controls.example.json sh scripts/deploy.sh
 ```
 
-Enter the Pi’s password if prompted. Typing a password in Terminal normally shows no characters. The command finishes with two `active` lines when both services are running. Check the TV afterward. **Pushing to Git alone does not update the TV.**
+The config selection above gives the TV QR its campus address, even if your local preview uses localhost. It does not replace the Pi’s private settings. Enter the Pi’s password if prompted. Typing a password in Terminal normally shows no characters. The command finishes with two `active` lines when both services are running. Check the TV afterward. **Pushing to Git alone does not update the TV.**
 
-The scripts read the Pi destination from `config/pi-target` on your computer. When its address changes, edit that one file. It stays out of Git and is not sent to the TV. See [setup](docs/SETUP.md) if the file is missing. You can override it for one deployment with `sh scripts/deploy.sh user@host`.
+The scripts read the Pi destination from `config/pi-target` on your computer. When its address changes, edit that one file. It stays out of Git and is not sent to the TV. See [setup](docs/SETUP.md) if the file is missing. You can override it for one deployment by adding `user@host` to the deployment command above.
 
 New to Git? See the [official Git beginner tutorial](https://git-scm.com/docs/gittutorial).
 
@@ -129,6 +129,10 @@ External application events can use `publishUntil` to stop advertising after sig
 
 ## Phone and voice controls
 
-Say **“Hey Monty”**, then **pause**, **resume**, **next**, or **previous** within eight seconds. Browser restart is available through SSH, not the phone page. When enabled, say **“Hey Monty, controls”** to reveal the phone QR for 60 seconds, or use “pause,” “resume,” “next,” or “previous.” Audio stays on the Pi and is not saved. Event editing still uses this repository.
+Say **“Hey Monty”**, wait for “I’m listening ...,” then say **pause**, **resume**, **next**, or **previous** within eight seconds. You can also say a full phrase such as “Hey Monty, next.” Pause automatically ends after five minutes.
 
-The phone playback remote is available on campus at http://wmcs-lounge.westmont.edu:8081/control/. Connect your phone to “Campus” Wi-Fi and scan the QR; no password is needed. The [controls guide](docs/CONTROLS.md) explains access, setup, and the optional microphone.
+For phone controls, say **“Hey Monty, controls.”** After the confirmation fades, a QR appears with a 60-second countdown, then closes automatically. There is no permanent control QR or Close button on the TV. Connect your phone to **Campus** Wi-Fi and scan it, or open [the phone remote](http://wmcs-lounge.westmont.edu:8081/control/) directly. No password is needed for playback.
+
+The small mic prompt sits in the EVENTS > … bar. If it says **Voice unavailable**, use the phone link and follow the [Pi recovery guide](docs/PI.md#voice-controls-are-not-responding). Chrome does not need microphone permission: a service on the Pi processes audio locally without saving it. This is a slide controller, not a conversational assistant.
+
+Browser restart uses SSH, not the phone page. Content is still edited in this repository. See the [controls guide](docs/CONTROLS.md) for setup and technical details.

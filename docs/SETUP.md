@@ -10,7 +10,7 @@ Do this once on the computer you will use to edit the display.
 cp config/pi-target.example config/pi-target
 ```
 
-Open `config/pi-target` in your editor. Replace `REPLACE-WITH-PI-ADDRESS` with the current address supplied by the maintainer, keeping `mcs-lounge@` before it. Keep just that one line, with no quotes or password. This file stays on your computer and is ignored by Git. Once IT confirms the internal domain works, you can use `mcs-lounge@wmcs-lounge.westmont.edu` instead.
+Open `config/pi-target` in your editor. Replace `REPLACE-WITH-PI-ADDRESS` with the current address supplied by the maintainer, keeping `mcs-lounge@` before it. Keep just that one line, with no quotes or password. This file stays on your computer and is ignored by Git. The current working destination is `mcs-lounge@wmcs-lounge.westmont.edu` instead.
 
 Then run:
 
@@ -28,3 +28,5 @@ The first command installs the tools used to check the project. The second copie
 You also need access to the campus network or VPN and the Pi’s SSH password or key to send changes to the TV. Get credentials directly from the department’s maintainer. Do not put passwords into the content files or Git.
 
 The deployment commands are written for macOS/Linux. On Windows, use a compatible shell such as WSL, or ask IT to help with the first deployment.
+
+Voice recognition is already installed on the lounge Pi. You do not need to install Vosk or connect a microphone to your editing computer to change content or preview the design. See [local controls preview](CONTROLS.md#local-preview) for the interactive mockup. Follow the README deployment command so the TV QR uses the campus hostname, not your laptop's localhost address.

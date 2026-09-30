@@ -97,3 +97,9 @@ All 10 content and 10 control/audio tests passed. The browser check exercised wa
 Fixed fresh wake commands being rejected by a previous command's cooldown, unbounded QR-settings fetch blocking control polling, malformed action payloads crashing a request handler, and `/control` without its trailing slash breaking relative assets. Listening expiry now includes transition time. Mic status DOM updates occur only when status changes. Replaced manually repeated character markup and removed superseded animation styles.
 
 10 content and 12 API/audio tests passed. The control browser check passed; a new repeatable design check covers wake/confirmation transitions, timeout, rapid re-wake, the hidden QR command, offline state, and reduced motion. This remains local pending the user's final test.
+
+## Approved deployment — September 29, 2026
+
+Application commit `1ae5c81` was pushed to main and installed as Pi release `20260930T034437Z` (UTC timestamp). The approved voice UI, darkened background, animated phrase/edges, and delayed QR modal with Campus Wi-Fi instruction and a 60-second countdown are deployed. Earlier “local only” entries above describe historical stages.
+
+Final checks passed: 10 content tests, 12 API/audio tests, control browser tests, and voice-preview transition/countdown tests. Live display, kiosk, and microphone services were active with zero voice restarts at inspection. The live kiosk acknowledged injected wake, controls, and dismiss commands. The campus phone page connected successfully; privileged wake and admin routes were rejected. No reboot occurred. Human speech accuracy and motion smoothness in the lounge still need in-person observation.

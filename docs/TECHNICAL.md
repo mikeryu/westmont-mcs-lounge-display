@@ -24,7 +24,7 @@ The unmodified primary signature comes from the user-supplied `public/assets/wes
 
 The supplied `Typeface.zip` contains Museo Sans and ITC Stone Serif desktop fonts. `scripts/install-fonts.py` installs original OTF files into the current user’s fonts directory. CSS references **local** `MuseoSans-500`, `MuseoSans-700`, and `StoneSerifStd-Medium`. Fonts are not linked for HTTP download. On the Pi they live in `~/.local/share/fonts/westmont-display`; on macOS in `~/Library/Fonts/WestmontDisplay`. The supplied font license/archive remains intact. The code license does not relicense fonts or College imagery.
 
-Deployment uploads the font archive outside `dist/` and installs the fonts before activating the new release. To check installation on the Pi, use `fc-match 'Museo Sans'` and `fc-match 'ITC Stone Serif Std'`. Browser verification also checks the actual rendered font families through Chromium’s font inspection API, since fontconfig alone is not proof of browser use.
+Normal deployment preserves the private assets and fonts already installed on the Pi; it does not upload font archives. To check installation on the Pi, use `fc-match 'Museo Sans'` and `fc-match 'ITC Stone Serif Std'`. Browser verification also checks the actual rendered font families through Chromium’s font inspection API, since fontconfig alone is not proof of browser use.
 
 ## Sources and weather
 
@@ -38,13 +38,13 @@ Refresh every 15 minutes, timeout 10 seconds. Cache observations in localStorage
 
 `config/pi-target` holds a single SSH destination (user@hostname or user@IPv4). It is ignored by Git and excluded from release archives. Deployment, private-asset fetching, and `scripts/ssh-pi.sh` all use `scripts/pi-target.sh` to read and validate it as plain text. Deploy/fetch accept an optional destination argument that overrides the file. No destination is embedded in the application.
 
-The inspected Pi is a Raspberry Pi 5 running Bookworm, labwc/Wayland, Chromium, and Python 3. Existing desktop autologin starts its user services. `scripts/deploy.sh` builds locally, creates a dated release under `~/.local/share/westmont-display/releases/`, installs fonts, updates `current` and `previous` symlinks, and restarts the services.
+The inspected Pi is a Raspberry Pi 5 running Bookworm, labwc/Wayland, Chromium, and Python 3. Existing desktop autologin starts its user services. `scripts/deploy.sh` builds locally, creates a dated release under `~/.local/share/westmont-display/releases/`, links existing private assets, updates `current` and `previous` symlinks, and restarts the services.
 
 The Python server listens on loopback port 8080. Chromium has a dedicated profile at `~/.local/share/westmont-display/chromium`, uses Wayland, and waits for the compositor socket. `--password-store=basic` avoids the initial keyring dialog; this profile does not store login credentials. Its browser sandbox remains enabled. Server and kiosk exits restart after three seconds and one minute respectively.
 
 Service files are under `~/.config/systemd/user/`. To pause the kiosk for maintenance, run `systemctl --user stop westmont-kiosk`; to resume, use `start`. To disable both at login, use `systemctl --user disable --now westmont-kiosk westmont-display`. Existing desktop files and unrelated services are preserved.
 
-For SSH-tunneled viewing from your computer: `sh scripts/ssh-pi.sh -L 8081:127.0.0.1:8080`, then open http://127.0.0.1:8081. No campus-facing web listener is required. The configured campus hostname is active; phone access still depends on network policy. Phone playback uses a separate HTTP listener on port 8081, with all admin routes blocked; optional TLS remains available. see CONTROLS.md.
+For SSH-tunneled viewing from your computer: `sh scripts/ssh-pi.sh -L 8081:127.0.0.1:8080`, then open http://127.0.0.1:8081. No campus-facing web listener is required. The configured campus hostname is active; phone access still depends on network policy. Phone playback uses a separate HTTP listener on port 8081, with all admin routes blocked; optional TLS remains available. See [CONTROLS.md](CONTROLS.md).
 
 Rollback in PI.md switches app and launcher files. If a future release changes service definitions, run the selected release’s `scripts/install-pi.sh` to restore those definitions. The installer does not overwrite `previous` when reinstalling the already selected release. Keep older releases until the new version is accepted.
 
@@ -58,7 +58,7 @@ npm test
 npm run test:browser
 ```
 
-The browser check fixes time before Fall Kickoff, inspects all 15 views at 1080p, checks actual official font use and image loading, captures 640×360 distance proxies, tests rotation/pause/wrap, advances past the event cutoff while paused, and exercises stale/unavailable weather and empty categories. Screenshots are in `docs/screenshots/v2/`.
+The browser check fixes time before Fall Kickoff, inspects all 20 views at 1080p, checks actual official font use and image loading, captures 640×360 distance proxies, tests rotation/pause/wrap, advances past the event cutoff while paused, and exercises stale/unavailable weather and empty categories. Screenshots are in `docs/screenshots/v2/`.
 
 Remote screenshots cannot prove physical TV brightness, overscan, viewing distance, cable quality, sleep settings, or long-running hardware stability. Check those in the lounge after installation.
 
@@ -76,7 +76,7 @@ The unmodified paths are in `src/weather-icon-paths.js`, generated by `node scri
 
 ## QR links
 
-The build creates local black-on-white SVG QR codes using `qrcode`, with a four-module quiet zone. No runtime QR service is used. Faculty, programs, alumni, and CATLab use their `source` URL. Alumni links lead to the relevant program page containing their story. Welcome links to Mathematics. Events open an email draft to `rsvpEmail` with the event name in the subject; visitors still send the message themselves. Browser checks decode every rendered QR image and compare its destination.
+The build creates local black-on-white SVG QR codes using `qrcode`, with a four-module quiet zone. No runtime QR service is used. Faculty, programs, alumni, and CATLab use their `source` URL. Alumni links lead to the relevant program page containing their story. Welcome links to Mathematics. Events with a `url` link to that page; otherwise `rsvpEmail` opens an email draft with the event name in the subject; visitors still send the message themselves. Browser checks decode every rendered QR image and compare its destination.
 
 Office directions use the user-confirmed top-down layout in `src/office-map.js`: TV between the Mike/Kyle and Anna/Guang rows, facing south. The viewer faces north; Mike is ahead-left, Kyle slightly behind-left, and Patti behind-right. This is a schematic, not a scale drawing. The highlighted office and arrow appear on each faculty slide.
 
@@ -87,3 +87,11 @@ Program emblems are original static SVG subject illustrations in `src/program-em
 The build adds a content version to JavaScript imports and stylesheet URLs. The kiosk also opens a versioned entry-page URL, so a deployment cannot reuse an older cached page and mix old application code with new event data. No manual cache clearing is needed. Browser checks can target another local preview port with `DISPLAY_TEST_URL=http://127.0.0.1:8081 npm run test:browser`.
 
 The rotation strip now occupies its own 50 px row above the clock/weather, with a contrasting light background, chevron separators, and a maroon timer. Main content uses 710 px height. Alumni can supply `profileUrl` for a QR destination separate from the factual `source`. User-confirmed class years take precedence over conflicting pages, recorded in `yearNote`.
+
+## Voice interaction lifecycle
+
+`westmont-voice` captures the USB microphone using ALSA and Vosk. The browser never requests microphone access. Final, confident recognition of “hey monty” opens an eight-second, single-command window; complete wake-plus-command phrases also work. `controls` and `management` are supported but omitted from the on-screen menu.
+
+The local API queues source-tagged commands. The kiosk polls every 500 ms, rejects stale wake displays using command age, and acknowledges processed commands. Voice confirmation holds for 2.8 seconds and fades out before the remote panel enters. That panel starts a visible 60-second countdown when opened, then eases out without a button. A new wake or dismissal cancels a pending panel. Animation revision counters prevent an interrupted dismissal from hiding a newer overlay. Gradients animate with transforms/opacity; reduced-motion preferences disable movement.
+
+Private Pi settings are at `~/.config/westmont-display/controls.json`; model files and the Python environment live under `~/.local/share/westmont-display/`. Deployment restarts voice only if its service was explicitly enabled. Campus port 8081 serves playback controls only; privileged display, voice, and admin endpoints require loopback access, with additional token/password checks where applicable. Private College assets are not served by the campus listener.

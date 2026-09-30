@@ -35,6 +35,9 @@ previous=$(readlink "$base/previous")
 if [ -n "$previous" ] && [ -d "$previous" ]; then
   ln -sfn "$previous" "$base/current"
   systemctl --user restart westmont-display westmont-kiosk
+  if systemctl --user is-enabled --quiet westmont-voice; then
+    systemctl --user restart westmont-voice
+  fi
 else
   echo "No previous version was found. Ask the maintainer for help."
 fi
@@ -73,3 +76,19 @@ At browser startup, `scripts/nudge-pointer.sh` moves the pointer one small step 
 ## Stop the optional microphone
 
 If voice controls are enabled, run `systemctl --user disable --now westmont-voice` to stop listening now and at future boots. Slides and phone controls keep working. See [the controls guide](CONTROLS.md) to turn it back on or troubleshoot the microphone.
+
+## Voice controls are not responding
+
+First, try [the phone remote](http://wmcs-lounge.westmont.edu:8081/control/) on **Campus** Wi-Fi. The voice feature is not required for phone playback. Check that the USB microphone is plugged in.
+
+Connect with `sh scripts/ssh-pi.sh`, then run:
+
+```sh
+systemctl --user restart westmont-voice
+systemctl --user is-active westmont-voice
+journalctl --user -u westmont-voice -n 20 --no-pager
+```
+
+The service should say `active`. Wait about 15 seconds, then say “Hey Monty,” pause briefly, and say “next.” If it still fails, send those service messages to the maintainer. Do not copy private settings or passwords. No Chrome microphone permission is needed.
+
+If the phone cannot connect, verify its Wi-Fi network and try the link above directly. IT may need to allow TCP port **8081** from Campus to the Pi on IoT. Port **8080** is deliberately local to the Pi. Do not reboot just to troubleshoot the remote.

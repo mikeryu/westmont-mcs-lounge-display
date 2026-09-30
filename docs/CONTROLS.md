@@ -1,23 +1,25 @@
 # Lounge remote and “Hey Monty”
 
+Deployed September 29, 2026 (application commit `1ae5c81`; release `20260930T034437Z`, UTC).
+
 The campus playback remote uses **http://wmcs-lounge.westmont.edu:8081/control/**. Scan the TV's QR while connected to a campus network that can reach the Pi. No password is requested. Playback requests use plain HTTP; all admin API routes are denied on campus listeners, even with valid credentials. The phone page has no administration section.
 
 For maintenance, use `sh scripts/ssh-pi.sh`, then `systemctl --user restart westmont-kiosk`. The local admin API remains restricted to loopback/SSH. HTTPS can be added later without changing the playback controls.
 
 ## Everyday use
 
-Say “Hey Monty, controls” to reveal the phone QR. The phone page can pause for five minutes, resume, move forward or backward, or show a larger QR code. Pauses end automatically so the display is not accidentally left stopped. Anyone who can reach the page on the campus network can use playback controls.
+Say “Hey Monty, controls” to reveal the phone QR. The phone page can pause for five minutes, resume, move forward or backward, or reveal the TV QR again. Pauses end automatically so the display is not accidentally left stopped. Anyone who can reach the page on the campus network can use playback controls.
 
 Say “Hey Monty,” then a command within eight seconds, or use a complete phrase:
 
-- “Hey Monty, controls” — show the large QR for one minute.
+- “Hey Monty, controls” — show the QR after confirmation, with a 60-second countdown.
 - “Hey Monty, pause” or “Hey Monty, resume.”
 - “Hey Monty, next” or “Hey Monty, previous.”
 - “Hey Monty, management” — also show the QR.
 
 The section bar shows a subtle mic prompt, or “Voice unavailable” if the listener stops. Wake recognition brings up a glowing command overlay; accepted commands show confirmation. The unlisted controls command opens the QR after confirmation fades, then counts down 60 seconds before automatically closing. Connect the phone to “Campus” Wi-Fi. There is no recording archive: audio is processed in memory on the Pi, with no cloud speech service or transcript logging. Voice never restarts anything. Restarting the browser is handled through SSH; it is not a phone control. Event editing remains a future feature.
 
-If a command is missed, try once more or scan the QR. The remote continues working without a microphone. If the phone cannot connect, campus network isolation may be blocking it; the QR itself cannot bypass that.
+If a command is missed, try once more or open the phone URL directly. The remote continues working without a microphone. If the phone cannot connect, campus network isolation may be blocking it; the QR itself cannot bypass that.
 
 ## Why this approach
 
@@ -39,7 +41,19 @@ Sources: [Vosk models and licenses](https://alphacephei.com/vosk/models), [Vosk 
 
 The normal `npm run build` and `npm start` commands work without voice dependencies. Open the display in one tab and `http://127.0.0.1:8080/control/` in another. Keep the display tab open. A localhost QR is only a desktop preview; a phone needs the Pi's campus URL.
 
-For another port, put the matching `public_url` in ignored `config/controls.json`, rebuild, and run `python3 control/server.py --port 8090`. The review preview used port 8090. `DISPLAY_CONTROLS_CONFIG` can select a separate build/runtime config, allowing the Pi build to use port 8080 without changing the laptop preview settings. Build copies **only the public URL**, never passwords or private TLS material, into the website.
+For a separate design preview on port 8095, run these commands in the repository folder:
+
+```sh
+printf '%s\n' '{"public_url":"http://127.0.0.1:8095/control/"}' > /tmp/lounge-preview.json
+DISPLAY_CONTROLS_CONFIG=/tmp/lounge-preview.json npm run build
+python3 control/server.py --config /tmp/lounge-preview.json --port 8095
+```
+
+Open http://127.0.0.1:8095/voice-preview.html. The five buttons simulate idle, listening, recognition, offline, and the hidden QR command. They do not record audio or control the Pi. Keep Terminal open; press Ctrl+C to stop the preview. Its localhost QR is not usable on a phone.
+
+For a real local API test, open http://127.0.0.1:8095/ and http://127.0.0.1:8095/control/ in separate tabs instead. Microphone status will be offline unless a local listener is running.
+
+Build copies **only the public URL**, never passwords or private TLS material, into the website. For deployment, use `DISPLAY_CONTROLS_CONFIG=config/controls.example.json sh scripts/deploy.sh` to restore the campus QR URL. If that URL changes, update the example and the Pi private config together.
 
 ## Campus setup and optional HTTPS
 
@@ -51,9 +65,9 @@ For HTTPS later, obtain a trusted certificate from IT, set absolute `tls_cert` a
 
 ## Optional microphone setup on the Pi
 
-The read-only hardware check found a USB PnP Sound Device. Its proposed stable ALSA name is `plughw:CARD=Device,DEV=0`; verify with `arecord -l` if the microphone changes. The trial checks capture without saving audio. Room acoustics still require an in-person test.
+The installed microphone is a USB PnP Sound Device. Its configured ALSA name is `plughw:CARD=Device,DEV=0`; verify with `arecord -l` if the microphone changes. The trial checks capture without saving audio. Room acoustics still require an in-person test.
 
-After deploying the approved release:
+The existing Pi already has this installed. For a replacement Pi, after deploying the application:
 
 ```sh
 sudo apt-get install python3-venv alsa-utils unzip
@@ -64,7 +78,7 @@ python3 -m venv ~/.local/share/westmont-display/voice-venv
 
 Download the **vosk-model-small-en-us-0.15** ZIP from the official [model list](https://alphacephei.com/vosk/models), then extract it under that `models` folder. Model license: Apache 2.0; retain its license files. The ZIP tested locally had SHA-256 `30f26242c4eb449f948e42cb302dd7a686cb29a3423a8367f99ff41780942498`. Models and the Python environment stay outside release folders and are not committed or downloaded at boot.
 
-In the Pi's private config, set `voice_model` to the **absolute path** of the extracted model directory, `voice_enabled` to `true`, and `voice_device` to the ALSA name. Keep `voice_phrase` as `hey monty` and `tone_enabled` as `false` for the first trial. Then:
+In the Pi's private config, set `voice_model` to the **absolute path** of the extracted model directory, `voice_enabled` to `true`, and `voice_device` to the ALSA name. Keep `voice_phrase` as `hey monty` and `tone_enabled` as `false` unless deliberately testing the tone. Then:
 
 ```sh
 sh ~/.local/share/westmont-display/current/scripts/install-voice.sh
@@ -83,21 +97,29 @@ To re-enable it, use `systemctl --user enable --now westmont-voice`. Unplugging 
 
 ## Verification and trial checklist
 
-Local checks cover command delivery/acknowledgement, offline and expired commands, rate limits, origin and Host restrictions, admin authentication/expiry/logout, restart permissions, exact phrase gating, and sustained-tone gating. Browser checks cover phone navigation, five-minute automatic resume, QR decoding, overlay dismissal, mobile layout, and footer spacing. Commands use one shared state across the local and HTTPS listeners; microphone commands can only use the local listener.
+Local checks cover command delivery/acknowledgement, offline and expired commands, rate limits, origin and Host restrictions, admin authentication/expiry/logout, restart permissions, exact phrase gating, and sustained-tone gating. Browser checks cover phone navigation, five-minute automatic resume, QR decoding, overlay dismissal, mobile layout, and footer spacing. Commands use one shared state across the loopback and campus listeners; microphone commands can only use the local listener.
 
 The actual Vosk model accepted all six supported synthetic spoken phrases and rejected three negative examples, including “Hey Monty, restart.” This demonstrates wiring, not real-room dependability or Pi performance. The deployment trial reads microphone audio into memory without saving it. Real-room command accuracy is not established by these synthetic checks.
 
 Before calling the feature ready:
 
 - Try all commands from the seating area with several people, first quietly and then with normal conversation.
-- Leave it through a busy lounge period and count accidental activations. If too frequent, disable voice and keep the QR while tuning or considering a trained detector.
+- Leave it through a busy lounge period and count accidental activations. If too frequent, disable voice and use the phone URL directly while tuning or considering a trained detector.
 - Check CPU/memory use and slide smoothness on the Pi.
 - Unplug/replug the microphone; verify recovery and uninterrupted slides.
-- Verify the QR and protected restart from intended campus phone networks.
+- Verify the QR and playback from Campus Wi-Fi. Confirm admin endpoints remain blocked there; maintenance uses SSH.
 - Test startup during an approved reboot window; do not reboot just for installation.
 
-Developer commands: `npm test`, `npm run test:controls`, and (with the 8090 preview running) `node scripts/controls-browser-check.mjs`. `voice/listen.py --config PATH --wav FILE` accepts mono 16-bit 16 kHz test WAVs and prints accepted actions only.
+## Developer checks
 
-## Final local review
+With the local server above running:
 
-The design preview at `/voice-preview.html` includes a fifth button for the unlisted QR command. Buttons simulate recognition; they do not activate a microphone or send commands to the Pi. Use it to review wake, recognition, timeout dismissal, offline, and QR states. `node scripts/voice-preview-check.mjs` checks transitions, rapid re-wake during dismissal, timeout, QR countdown and automatic close, and reduced motion.
+```sh
+npm test
+npm run test:controls
+DISPLAY_TEST_URL=http://127.0.0.1:8095 npm run test:browser
+DISPLAY_TEST_URL=http://127.0.0.1:8095 node scripts/controls-browser-check.mjs
+DISPLAY_TEST_URL=http://127.0.0.1:8095 node scripts/voice-preview-check.mjs
+```
+
+The design checks cover entrance/exit easing, recognition, timeout, rapid re-wake, hidden QR sequencing, countdown, automatic close, and reduced motion. `voice/listen.py --config PATH --wav FILE` accepts mono 16-bit 16 kHz test WAVs and prints accepted actions only. Simulated commands and synthetic speech do not replace a real lounge test.
