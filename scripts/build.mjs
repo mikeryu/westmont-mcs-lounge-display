@@ -25,7 +25,13 @@ for(const [id,url,label] of links){
  await writeFile(`dist/${path}`,await QRCode.toString(url,{type:'svg',errorCorrectionLevel:'M',margin:4}));
  data.links[id]={url,label,path};
 }
-await writeFile('dist/content.json' ,JSON.stringify(data));
+let remoteURL='http://127.0.0.1:8080/control/';
+try{remoteURL=JSON.parse(await readFile(process.env.DISPLAY_CONTROLS_CONFIG||'config/controls.json','utf8')).public_url||remoteURL;}catch(error){if(error.code!=='ENOENT')throw error;}
+const parsedRemote=new URL(remoteURL);
+if(!['https:','http:'].includes(parsedRemote.protocol)||parsedRemote.username||parsedRemote.password)throw Error('Remote URL must be HTTP(S) without credentials');
+await writeFile('dist/qr/remote.svg',await QRCode.toString(remoteURL,{type:'svg',errorCorrectionLevel:'M',margin:4}));
+await writeFile('dist/control-settings.json',JSON.stringify({url:remoteURL}));
+await writeFile('dist/content.json'  ,JSON.stringify(data));
 console.log(`Built ${data.faculty.length} faculty, ${data.programs.length} programs, ${data.alumni.length} alumni, ${data.events.length} events.`);
 
 // Version all module imports and entry assets together, avoiding mixed cached releases.

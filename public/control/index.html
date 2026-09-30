@@ -1,0 +1,8 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#9d2235"><title>Lounge remote · Westmont</title><link rel="stylesheet" href="remote.css"></head><body>
+<header><span>WESTMONT · MATHEMATICS & COMPUTER SCIENCE</span><h1>Your lounge.<br>Your remote.</h1><p>Pause to read. Skip to something new.</p></header>
+<main><section class="now"><span id="connection" role="status">Connecting…</span><h2 id="title">Finding the display</h2><p id="playback">Keep this page open while using the remote.</p><small id="voice-status"></small></section>
+<div class="buttons"><button data-action="previous" aria-label="Previous slide">← Previous</button><button data-action="next">Next →</button><button class="primary" data-action="pause">Pause · 5 min</button><button data-action="resume">Resume</button></div>
+<p id="feedback" role="status" aria-live="polite"></p><div class="minor"><button data-action="controls">Show large QR on TV</button><button data-action="dismiss">Close TV QR</button></div>
+<details><summary>Microphone & tone fallback</summary><p>When voice is enabled, say <b id="phrase">“Hey Monty, controls.”</b> You can also say pause, resume, next, or previous after the same wake phrase. Audio stays on the Pi and is not saved.</p><p>The experimental tone only opens the QR panel. It must be enabled on the Pi. Keep your phone volume modest.</p><button id="tone">Play a 2-second test tone</button><p id="tone-status" role="status"></p></details>
+
+<footer>Campus network access required. If this page cannot reach the display, try another campus network or contact the department.</footer></main><script type="module" src="remote.js"></script></body></html>

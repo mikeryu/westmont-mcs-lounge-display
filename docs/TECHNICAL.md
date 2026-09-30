@@ -2,7 +2,7 @@
 
 ## App and data
 
-Plain JavaScript and CSS; no runtime npm dependencies. `npm run build` validates `data/*.json`, then copies `src/` and the public files into `dist/`. ZIP archives are excluded. The browser reads `dist/content.json` once on startup; deploy restarts it to load changes. No database or write endpoints exist.
+Plain JavaScript and CSS; no runtime npm dependencies. `npm run build` validates `data/*.json`, then copies `src/` and the public files into `dist/`. ZIP archives are excluded. The browser reads `dist/content.json` once on startup; deploy restarts it to load changes. Content remains file-based with no database. The optional remote API changes playback state in memory and allows authenticated browser restart; it cannot edit content. See [CONTROLS.md](CONTROLS.md).
 
 The stage is 1920×1080, scaled uniformly to fit smaller preview windows. Faculty and alumni have distinct treatments; program names lead their slides. The persistent status bar uses 86 px time and 52 px weather text. Time and weather remain in the footer; there is no dedicated conditions slide. Main content text is normally 40–166 px. Long background biographies remain in data, not on screen.
 
@@ -44,7 +44,7 @@ The Python server listens on loopback port 8080. Chromium has a dedicated profil
 
 Service files are under `~/.config/systemd/user/`. To pause the kiosk for maintenance, run `systemctl --user stop westmont-kiosk`; to resume, use `start`. To disable both at login, use `systemctl --user disable --now westmont-kiosk westmont-display`. Existing desktop files and unrelated services are preserved.
 
-For SSH-tunneled viewing from your computer: `sh scripts/ssh-pi.sh -L 8081:127.0.0.1:8080`, then open http://127.0.0.1:8081. No campus-facing web listener is required. The requested new DNS name is not assumed active.
+For SSH-tunneled viewing from your computer: `sh scripts/ssh-pi.sh -L 8081:127.0.0.1:8080`, then open http://127.0.0.1:8081. No campus-facing web listener is required. The configured campus hostname is active; phone access still depends on network policy. Phone playback uses a separate HTTP listener on port 8081, with all admin routes blocked; optional TLS remains available. see CONTROLS.md.
 
 Rollback in PI.md switches app and launcher files. If a future release changes service definitions, run the selected release’s `scripts/install-pi.sh` to restore those definitions. The installer does not overwrite `previous` when reinstalling the already selected release. Keep older releases until the new version is accepted.
 
@@ -80,7 +80,7 @@ The build creates local black-on-white SVG QR codes using `qrcode`, with a four-
 
 Office directions use the user-confirmed top-down layout in `src/office-map.js`: TV between the Mike/Kyle and Anna/Guang rows, facing south. The viewer faces north; Mike is ahead-left, Kyle slightly behind-left, and Patti behind-right. This is a schematic, not a scale drawing. The highlighted office and arrow appear on each faculty slide.
 
-Startup is installed by `scripts/install-startup.sh`, called on each deployment. The server service runs `npm start` in the active release (which includes package.json); this invokes Python’s static HTTP server. The browser launcher waits for Wayland and an HTTP response, then opens a full-screen Chromium kiosk window. Desktop auto-login starts the user services at boot.
+Startup is installed by `scripts/install-startup.sh`, called on each deployment. The server service runs `npm start` in the active release (which includes package.json); this invokes `control/server.py`, a standard-library Python server serving the built files and remote API. The browser launcher waits for Wayland and an HTTP response, then opens a full-screen Chromium kiosk window. Desktop auto-login starts the user services at boot.
 
 Program emblems are original static SVG subject illustrations in `src/program-emblems.js`, colored Westmont gold; they are not official College logos. A small footer chapter indicator shows the active rotation group.
 

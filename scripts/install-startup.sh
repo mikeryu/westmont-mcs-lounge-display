@@ -18,6 +18,7 @@ Description=Westmont lounge npm server
 StartLimitIntervalSec=0
 [Service]
 WorkingDirectory=%h/.local/share/westmont-display/current
+Environment=DISPLAY_CONTROLS_CONFIG=%h/.config/westmont-display/controls.json
 ExecStart=$npm_path start
 Restart=always
 RestartSec=3
@@ -43,3 +44,8 @@ systemctl --user daemon-reload
 systemctl --user enable westmont-display.service westmont-kiosk.service
 systemctl --user restart westmont-display.service westmont-kiosk.service
 systemctl --user --no-pager is-active westmont-display.service westmont-kiosk.service
+
+# Refresh the optional listener only if it was explicitly enabled earlier.
+if systemctl --user is-enabled --quiet westmont-voice.service; then
+  systemctl --user restart westmont-voice.service
+fi

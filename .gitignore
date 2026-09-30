@@ -11,3 +11,8 @@ docs/screenshots/
 
 # Each editor configures the Pi destination locally.
 /config/pi-target
+/config/controls.json
+.venv-voice/
+models/
+__pycache__/
+*.pyc

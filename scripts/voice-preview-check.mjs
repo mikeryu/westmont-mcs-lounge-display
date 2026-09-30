@@ -1,0 +1,31 @@
+import {chromium,expect} from '@playwright/test';
+import assert from 'node:assert/strict';
+const origin=process.env.DISPLAY_TEST_URL||'http://127.0.0.1:8095';
+const browser=await chromium.launch({channel:'chrome',headless:true});
+try{
+ const page=await browser.newPage({viewport:{width:1920,height:1144}});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(origin+'/voice-preview.html');
+ const frame=page.frameLocator('iframe'),overlay=frame.locator('#voice-overlay');
+ await expect(frame.locator('#voice-hint')).toBeVisible();
+ const choose=name=>page.getByRole('button',{name}).click();
+ await choose('2 · Listening');await expect(overlay).toContainText('I’m listening ...');
+ assert.equal(await frame.locator('.voice-commands').textContent(),'PauseResumeNextPrevious');
+ await choose('3 · Heard');await expect(overlay).toContainText('Next slide');
+ await expect(overlay).toBeHidden({timeout:5000});
+ await choose('2 · Listening');await expect(overlay).toBeVisible();
+ await choose('1 · Idle');assert.equal(await overlay.evaluate(e=>e.hidden),false,'Exit must animate');
+ await choose('2 · Listening');await page.waitForTimeout(1000);await expect(overlay).toBeVisible();
+ await expect(overlay).toBeHidden({timeout:9500});
+ await choose('5 · Hidden QR command');await expect(overlay).toContainText('Opening the remote');
+ await expect(frame.locator('#remote-panel')).toBeHidden();
+ await expect(overlay).toBeHidden({timeout:5000});await expect(frame.locator('#remote-panel')).toBeVisible();
+ assert.equal(await frame.locator('#remote-panel button').count(),0);
+ await page.clock.install();await page.clock.fastForward(30000);await expect(frame.locator('.remote-countdown span')).toHaveText(/^(29|30)$/);
+ await page.clock.fastForward(31000);await expect(frame.locator('#remote-panel')).toBeHidden();
+ await choose('4 · Offline');await expect(frame.locator('#voice-hint')).toHaveText('Voice unavailable');
+ await page.emulateMedia({reducedMotion:'reduce'});await choose('2 · Listening');await expect(overlay).toBeVisible();
+ assert.equal(await frame.locator('.listening-phrase>span').first().evaluate(e=>getComputedStyle(e).animationName),'none');
+ await choose('1 · Idle');await expect(overlay).toBeHidden();
+ assert.deepEqual(errors,[]);console.log('PASS transitions, timeout, rapid re-wake, hidden QR, offline, reduced motion');
+}finally{await browser.close();}

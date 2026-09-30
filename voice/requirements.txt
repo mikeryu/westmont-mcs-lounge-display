@@ -1,0 +1,2 @@
+vosk==0.3.45; sys_platform == 'linux'
+vosk==0.3.44; sys_platform == 'darwin'

@@ -22,7 +22,7 @@ try{
  const fontRecords=[];
  for(let i=0;i<count;i++){
   await page.evaluate(()=>Promise.all([...document.images].map(img=>img.decode())));
-  const issues=await page.evaluate(()=>({broken:[...document.images].filter(i=>!i.complete||!i.naturalWidth).map(i=>i.src),overflow:[...document.querySelectorAll('h1,p,.event-details,.event-rsvp,.faculty-office,.eyebrow,footer strong,footer span')].filter(e=>{const r=e.getBoundingClientRect(),parent=e.closest('main,footer').getBoundingClientRect();return r.bottom>parent.bottom+1||r.right>1858||r.left<0||e.scrollWidth>e.clientWidth+2||e.scrollHeight>e.clientHeight+2;}).map(e=>e.id||e.className||e.tagName)}));
+  const issues=await page.evaluate(()=>({broken:[...document.images].filter(i=>!i.complete||!i.naturalWidth).map(i=>i.src),overflow:[...document.querySelectorAll('h1,p,.event-details,.event-rsvp,.faculty-office,.eyebrow,footer strong,footer span')].filter(e=>{const container=e.closest('main,footer');if(!container)return false;const r=e.getBoundingClientRect(),parent=container.getBoundingClientRect();return r.bottom>parent.bottom+1||r.right>1858||r.left<0||e.scrollWidth>e.clientWidth+2||e.scrollHeight>e.clientHeight+2;}).map(e=>e.id||e.className||e.tagName)}));
   if(await page.locator('#drilldown img').count()){
   const qr=await page.locator('#drilldown img').screenshot();
   const png=PNG.sync.read(qr);

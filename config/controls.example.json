@@ -1,0 +1,16 @@
+{
+  "public_url": "http://wmcs-lounge.westmont.edu:8081/control/",
+  "allowed_hosts": ["wmcs-lounge.westmont.edu", "127.0.0.1", "localhost"],
+  "lan_bind": "0.0.0.0",
+  "lan_port": 8081,
+  "lan_http_enabled": true,
+  "tls_cert": "",
+  "tls_key": "",
+  "admin_password_hash": "",
+  "allow_restart": false,
+  "voice_enabled": false,
+  "voice_phrase": "hey monty",
+  "voice_device": "plughw:CARD=Device,DEV=0",
+  "voice_model": "",
+  "tone_enabled": false
+}

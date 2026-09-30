@@ -54,7 +54,7 @@ This shows recent service messages. Do not include password files.
 
 If only weather is missing, the rest of the display should keep working. Check the Pi’s internet connection. Weather retries every 15 minutes; “Last known conditions” means it has older data.
 
-For technical details, see [TECHNICAL.md](TECHNICAL.md). If the Pi address changes, update `config/pi-target` on your computer. Use the planned hostname `wmcs-lounge.westmont.edu` there only after IT confirms it is ready.
+For technical details, see [TECHNICAL.md](TECHNICAL.md). If the Pi address changes, update `config/pi-target` on your computer. The current hostname is `wmcs-lounge.westmont.edu`.
 
 ## Set up automatic startup again
 
@@ -66,6 +66,10 @@ sh ~/.local/share/westmont-display/current/scripts/install-startup.sh
 
 At boot, the Pi logs into its desktop, starts `npm start`, and opens the display in a full-screen kiosk window. The launcher waits until the desktop and webpage are ready. Both services restart if they stop. The service name `westmont-kiosk` is kept so the recovery commands above still work.
 
-On a replacement Pi, install the prerequisites with `sudo apt-get install npm python3 chromium ydotool`. Enable **Desktop Autologin** in `sudo raspi-config`, then deploy. Build tools run on your editing computer; the Pi does not need `npm install`. `npm start` runs the Python static server already defined in this project.
+On a replacement Pi, install the prerequisites with `sudo apt-get install npm python3 chromium ydotool`. Enable **Desktop Autologin** in `sudo raspi-config`, then deploy. Build tools run on your editing computer; the Pi does not need `npm install`. `npm start` runs the Python display and remote-control server defined in this project.
 
 At browser startup, `scripts/nudge-pointer.sh` moves the pointer one small step twice, about 9 and 20 seconds after launch. This lets Chromium apply the page’s invisible cursor after power recovery. The physical mouse still works. The helper uses Bookworm’s ydotool 0.1.x and the Pi account’s existing passwordless sudo; failures are logged but do not stop the display. No ongoing mouse movement is scheduled.
+
+## Stop the optional microphone
+
+If voice controls are enabled, run `systemctl --user disable --now westmont-voice` to stop listening now and at future boots. Slides and phone controls keep working. See [the controls guide](CONTROLS.md) to turn it back on or troubleshoot the microphone.

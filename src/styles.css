@@ -44,3 +44,49 @@ main{width:1600px}#drilldown{position:absolute;right:0;top:120px;width:320px;hei
 .external-copy h1{font-size:100px;margin:24px 0}.external-copy p{font-size:40px;line-height:1.3}.external-audience{font-size:27px;line-height:1.4;margin-top:26px;color:var(--gold)}
 .external-details{border-left:2px solid var(--gold);padding-left:38px;display:flex;flex-direction:column;gap:12px}.external-details>strong{font-size:52px;color:var(--gold)}.external-details>span{font-size:34px;line-height:1.35}.signup-required{margin-top:18px;padding:20px;background:var(--gold);color:#202b32;font-size:30px}.signup-required strong{display:block;font-size:38px;margin-top:8px}
 .external-careers{grid-column:1/-1;border-top:2px solid var(--gold);padding-top:20px}.external-careers>strong{font-size:32px;color:var(--gold);text-transform:uppercase;letter-spacing:2px}.external-careers p{font-size:40px;margin-top:10px}.external-careers>span{display:block;font-size:25px;margin-top:12px}
+
+#remote-panel[hidden]{display:none}
+#remote-panel{position:absolute;inset:120px 0 250px;z-index:5;background:rgba(20,29,34,.92);display:grid;place-items:center}.remote-panel-card{background:var(--paper);width:660px;padding:32px 46px;position:relative;border-radius:24px;text-align:center}.remote-panel-card h2{font:44px/1.2 Stone,Georgia,serif;margin:0 0 22px;color:var(--maroon)}.remote-panel-card>img{width:360px;height:360px;margin:0 auto}.remote-panel-card .remote-countdown{font-size:23px;color:var(--gray);margin:20px 0 0;line-height:1.3;font-variant-numeric:tabular-nums}
+
+
+/* Voice prompt and overlay; edge motion uses opacity and transforms. */
+#voice-hint{position:absolute;right:28px;top:0;height:44px;display:flex;align-items:center;gap:8px;color:#63635d;font-size:17px;line-height:22px;z-index:2}
+#voice-hint svg{width:12px;height:15px;color:#706c60}#voice-hint.offline{color:#706c60}
+#voice-glow{position:absolute;inset:0;z-index:9;pointer-events:none;opacity:0;border-radius:8px}
+#display[data-voice="heard"] #voice-glow{opacity:.7}
+#voice-overlay{position:absolute;left:50%;bottom:280px;transform:translateX(-50%);width:1040px;padding:34px 42px 24px;z-index:8;border-radius:24px;background:#fbf9f4;box-shadow:0 12px 60px #14202955;border:1px solid #ceb888;color:var(--ink)}
+#voice-overlay[hidden]{display:none}.voice-heading{display:flex;gap:24px;align-items:center}.voice-symbol{width:70px;height:70px;border-radius:50%;background:#9d22350e;color:var(--maroon);display:grid;place-items:center;flex-shrink:0}.voice-symbol svg{width:28px;height:34px}.voice-label{font-size:17px;font-weight:700;letter-spacing:3px;color:var(--maroon);margin-bottom:6px}#voice-overlay h2{font-family:Stone,Georgia,serif;font-size:54px;line-height:1.12;font-weight:400;margin:0;letter-spacing:-1px}.voice-commands{display:flex;gap:14px;margin-top:28px}.voice-commands span{flex:1;text-align:center;padding:15px 12px;border-radius:12px;border:1px solid #d9d4ca;background:white;font-size:28px}.voice-note{font-size:18px;color:var(--gray);text-align:center;margin-top:20px}
+#voice-overlay[data-mode="heard"]{width:760px;padding:28px 38px;bottom:286px}#voice-overlay[data-mode="heard"] .voice-symbol{background:#e4ece5;color:#375e43}#voice-overlay[data-mode="heard"] .voice-label{color:#375e43}#voice-overlay[data-mode="heard"] h2{font-size:44px}
+@keyframes voice-breathe{0%,100%{opacity:.65}50%{opacity:1}}@keyframes voice-arrive{from{opacity:0;translate:0 12px}to{opacity:1;translate:0 0}}
+@media(prefers-reduced-motion:reduce){#voice-glow,#voice-overlay{animation:none!important;transition:none}}
+
+/* Dim the signage behind voice interaction without affecting the controls or glow. */
+#display::after{content:"";position:absolute;inset:0;background:#101820;opacity:0;pointer-events:none;z-index:6;}
+#display[data-voice="listening"]::after,#display[data-voice="heard"]::after{opacity:.58}
+@media(prefers-reduced-motion:reduce){#display::after{transition:none}}
+
+/* Broad, prepainted edge gradients drift using compositor-friendly transforms. */
+#voice-glow{background:linear-gradient(90deg,#c7486c,#efb6b0,#e5cc8f,#77cfd4) top/100% 7px no-repeat,linear-gradient(90deg,#79ced4,#beaadf,#dc7999,#e5cc8f) bottom/100% 7px no-repeat,linear-gradient(#c7486c,#e5cc8f,#77cfd4) left/7px 100% no-repeat,linear-gradient(#77cfd4,#beaadf,#e5cc8f) right/7px 100% no-repeat;box-shadow:inset 0 0 22px 7px #e5cc8f90,inset 0 0 60px 14px #ca638470}
+#voice-glow::before,#voice-glow::after{content:"";position:absolute;inset:-4%;pointer-events:none;will-change:transform,opacity}
+#voice-glow::before{background:radial-gradient(ellipse 36% 7% at 24% 4%,#f69cbdcc,transparent 78%),radial-gradient(ellipse 28% 8% at 72% 96%,#94e1e4dd,transparent 78%),radial-gradient(ellipse 7% 34% at 4% 64%,#e8ca89cc,transparent 78%),radial-gradient(ellipse 7% 30% at 96% 30%,#b7a1e4cc,transparent 78%)}
+#voice-glow::after{background:radial-gradient(ellipse 34% 7% at 70% 4%,#9fe0e5cc,transparent 78%),radial-gradient(ellipse 34% 7% at 30% 96%,#edbd8ccc,transparent 78%),radial-gradient(ellipse 7% 30% at 4% 28%,#ca9ee3bb,transparent 78%),radial-gradient(ellipse 7% 34% at 96% 72%,#ef9bb9cc,transparent 78%)}
+#display[data-voice="listening"] #voice-glow{animation:none;opacity:1}
+#display[data-voice="listening"] #voice-glow::before{animation:voice-wave-a 3s ease-in-out infinite alternate}
+#display[data-voice="listening"] #voice-glow::after{animation:voice-wave-b 4s ease-in-out infinite alternate}
+@keyframes voice-wave-a{from{transform:translate(-1.4%,.6%) scale(1);opacity:.65}to{transform:translate(1.4%,-.6%) scale(1.015,.985);opacity:1}}
+@keyframes voice-wave-b{from{transform:translate(1%,-.7%) scale(1.01,.99);opacity:.9}to{transform:translate(-1%,.7%) scale(.99,1.01);opacity:.5}}
+@media(prefers-reduced-motion:reduce){#voice-glow::before,#voice-glow::after{animation:none!important;will-change:auto}}
+
+/* One calm wave across the phrase, preserving readable contrast throughout. */
+.listening-phrase{display:inline-flex;white-space:nowrap;letter-spacing:-1px}
+.listening-phrase>span{display:inline-block;animation:listening-phrase-wave 2.8s ease-in-out infinite;animation-delay:calc(var(--letter) * 65ms)}
+@keyframes listening-phrase-wave{0%,65%,100%{opacity:.65;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+@media(prefers-reduced-motion:reduce){.listening-phrase>span{animation:none;opacity:1}}
+
+/* Wake and dismissal ease together; confirmation keeps its shape during exit. */
+#voice-glow{transition:opacity 1s cubic-bezier(.22,1,.36,1)}
+#display::after{transition:opacity .9s cubic-bezier(.22,1,.36,1)}
+#display[data-voice="idle"] #voice-glow::before,#display[data-voice="idle"] #voice-glow::after{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){#voice-glow,#display::after{transition:none}}
+
+.remote-panel-card .remote-network{font-size:22px;line-height:1.3;color:var(--ink);margin:18px 0 0}.remote-panel-card .remote-countdown{margin-top:10px}

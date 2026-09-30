@@ -1,3 +1,4 @@
+import {startControls} from './display-controls.js';
 import {programEmblem} from './program-emblems.js';
 import {officePositions,officeArrow,officeMap} from './office-map.js';
 import {weatherIcon} from './weather-icons.js';
@@ -5,7 +6,7 @@ import {slidesFor,nextIndex,clockParts,weatherURL,parseWeather,weatherLabel,weat
 const $=selector=>document.querySelector(selector);
 const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const photo=(path,alt)=>`<img src="${escape(path)}" alt="${escape(alt)}">`;
-let data,slides,index=0,paused=false,deadline,weather=null;
+let data,slides,index=0,paused=false,deadline,weather=null,remotePauseUntil=0;
 const dateFormat=(date,options)=>new Intl.DateTimeFormat('en-US',{timeZone:data.config.timezone,...options}).format(date);
 function fit(){document.documentElement.style.setProperty('--scale',Math.min(innerWidth/1920,innerHeight/1080));}
 fit();addEventListener('resize',fit);
@@ -48,6 +49,7 @@ function tick(){
   const now=Date.now(),clock=clockParts(now,data.config.timezone);
   $('#clock').textContent=clock.time;
   $('#date').textContent=dateFormat(now,{weekday:'short',month:'short',day:'numeric'});
+  if(remotePauseUntil&&now>=remotePauseUntil){remotePauseUntil=0;paused=false;render();}
   const nextSlides=slidesFor(data,now);
   if(nextSlides.map(s=>s.id).join()!==slides.map(s=>s.id).join()){
     const id=slides[index].id;slides=nextSlides;index=Math.max(0,slides.findIndex(s=>s.id===id));render();
@@ -80,10 +82,19 @@ async function boot(){
   try{weather=JSON.parse(localStorage.getItem('mcs-weather'));}catch{}
   await document.fonts.ready;
   render();tick();setInterval(tick,1000);refreshWeather();setInterval(refreshWeather,data.config.weatherRefreshMinutes*60000);
+  startControls({
+    status:()=>({paused,title:slides[index]?.item?.name||'The lounge',index,count:slides.length}),
+    apply:action=>{
+      if(action==='pause'){paused=true;remotePauseUntil=Date.now()+300000;}
+      else if(action==='resume'){paused=false;remotePauseUntil=0;}
+      else if(action==='next'||action==='previous')index=nextIndex(index,action==='next'?1:-1,slides.length);
+      render();tick();
+    }
+  });
   document.addEventListener('keydown',event=>{
     if(!['ArrowRight','ArrowLeft',' ','Home'].includes(event.key))return;
     event.preventDefault();
-    if(event.key===' ')paused=!paused;
+    if(event.key===' '){paused=!paused;remotePauseUntil=0;}
     else index=event.key==='Home'?0:nextIndex(index,event.key==='ArrowRight'?1:-1,slides.length);
     render();tick();
   });

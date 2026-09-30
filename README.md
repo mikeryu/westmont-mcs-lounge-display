@@ -126,3 +126,9 @@ Tea Time (Tuesdays, 2:30–4 PM) and CS-10 tutoring (Tuesdays and Wednesdays, 6:
 The Fall Kickoff poster confirms an end time of September 17 at 6:30 PM and a September 10 RSVP deadline, superseding the earlier example’s midnight removal time. Guang’s September 15 talk expires at 3:35 PM after its posted 20-minute duration. One-time events disappear automatically at `end`.
 
 External application events can use `publishUntil` to stop advertising after signup closes, even when the event itself happens later. Unwrapathon runs October 23–25, but its advert leaves the rotation after October 10. Its QR code links to the organizer’s details and application page.
+
+## Phone and voice controls
+
+Say **“Hey Monty”**, then **pause**, **resume**, **next**, or **previous** within eight seconds. Browser restart is available through SSH, not the phone page. When enabled, say **“Hey Monty, controls”** to reveal the phone QR for 60 seconds, or use “pause,” “resume,” “next,” or “previous.” Audio stays on the Pi and is not saved. Event editing still uses this repository.
+
+The phone playback remote is available on campus at http://wmcs-lounge.westmont.edu:8081/control/. Connect your phone to “Campus” Wi-Fi and scan the QR; no password is needed. The [controls guide](docs/CONTROLS.md) explains access, setup, and the optional microphone.
